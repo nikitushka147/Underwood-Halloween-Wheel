@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Underwood Halloween Wheel 🎃👻</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background: #0d0614;
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(147, 51, 234, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 50%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Декоративне павутиння у кутках */
+        body::before {
+            content: '🕸️';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 3rem;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '🕸️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 3rem;
+            opacity: 0.3;
+            transform: scaleX(-1);
+            pointer-events: none;
+        }
+
+        h1 {
+            margin-bottom: 6px;
+            color: #f97316;
+            text-align: center;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px rgba(249, 115, 22, 0.6), 0 0 25px rgba(147, 51, 234, 0.8);
+        }
+
+        p.subtitle {
+            margin-bottom: 15px;
+            color: #c084fc;
+            text-align: center;
+            font-size: 0.95rem;
+            text-shadow: 0 0 8px rgba(192, 132, 252, 0.4);
+        }
+
+        /* Лічильник спроб */
+        .attempts-badge {
+            background: rgba(249, 115, 22, 0.15);
+            border: 1px solid #f97316;
+            color: #fdba74;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(249, 115, 22, 0.2);
+        }
+
+        /* Адаптивний контейнер колеса */
+        .wheel-container {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Гарбузова/Кажаняча стрілка зверху */
+        .pointer {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 36px solid #f97316;
+            z-index: 10;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.9)) drop-shadow(0 0 6px #f97316);
+        }
+
+        .pointer::after {
+            content: '🎃';
+            position: absolute;
+            top: -42px;
+            left: -14px;
+            font-size: 1.5rem;
+        }
+
+        /* Canvas */
+        canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(147, 51, 234, 0.4), 0 0 15px rgba(249, 115, 22, 0.3), inset 0 0 20px rgba(0,0,0,0.8);
+            transition: transform 4.5s cubic-bezier(0.15, 0.9, 0.1, 1);
+        }
+
+        /* Центр колеса */
+        .center-cap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #18092c;
+            border: 4px solid #f97316;
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            box-shadow: 0 0 10px rgba(249, 115, 22, 0.6);
+        }
+
+        /* Кнопка запуску */
+        .spin-btn {
+            background: linear-gradient(135deg, #f97316, #a855f7);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 900;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.4);
+            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 320px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .spin-btn:hover:not(:disabled) {
+            transform: scale(1.04);
+            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.6);
+        }
+
+        .spin-btn:disabled {
+            background: #332244;
+            color: #776688;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: scale(1);
+        }
+
+        /* Модальне вікно */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 2, 10, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #18092c;
+            border: 2px solid #a855f7;
+            color: #fff;
+            padding: 25px 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-card h2 {
+            color: #f97316;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .modal-card p {
+            color: #e9d5ff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .promo-code-box {
+            background: #2e1052;
+            border: 2px dashed #f97316;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fef08a;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px rgba(254, 240, 138, 0.5);
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05rem;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .modal-btn-secondary {
+            background: #3b0764;
+            color: #d8b4fe;
+            border: 1px solid #a855f7;
+            box-shadow: none;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #581c87;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Halloween Fortune 🎃👻</h1>
+    <p class="subtitle">Крути зловісне колесо та вигравай знижки!</p>
+
+    <div class="attempts-badge" id="attemptsBadge">Залишилось спроб: 3 / 3 🔮</div>
+
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <canvas id="wheel" width="800" height="800"></canvas>
+        <div class="center-cap">🦇</div>
+    </div>
+
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">КРУТИТИ КОЛЕСО ⚡</button>
+
+    <!-- ВСПЛИВАЮЧЕ ВІКНО -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-card">
+            <h2 id="modalTitle">Зловісне колесо! 👻</h2>
+            <p id="modalText">Текст результату...</p>
+            <div id="promoBox" style="display: none;" class="promo-code-box"></div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn" id="modalMainBtn" onclick="closeModal()">Продовжити 🔮</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const promoBox = document.getElementById('promoBox');
+        const modalMainBtn = document.getElementById('modalMainBtn');
+        const attemptsBadge = document.getElementById('attemptsBadge');
+
+        // Сектори колеса
+        const sectors = [
+            { id: 'lose1', label: "Спробуй ще! 🧙‍♀️", color: "#2e1052", textColor: "#d8b4fe" },
+            { id: 'discount5', label: "Знижка 5% 🎃", color: "#f97316", textColor: "#000000" },
+            { id: 'lose2', label: "Привид вкрав! 👻", color: "#4c1d95", textColor: "#ffffff" },
+            { id: 'discount7', label: "Знижка 7% 🦇", color: "#a855f7", textColor: "#ffffff" },
+            { id: 'lose3', label: "Зілля Невдачі 🧪", color: "#2e1052", textColor: "#d8b4fe" },
+            { id: 'discount10', label: "Знижка 10% 🏆", color: "#eab308", textColor: "#000000" },
+            { id: 'lose4', label: "Гарбузовий гармидер 🌾", color: "#4c1d95", textColor: "#ffffff" },
+            { id: 'lose5', label: "Промах! 🧹", color: "#1e1b4b", textColor: "#c084fc" }
+        ];
+
+        const numSectors = sectors.length;
+        const arc = (2 * Math.PI) / numSectors;
+        let totalRotation = 0;
+
+        // Зчитуємо кількість використаних спроб з localStorage
+        let currentAttempt = parseInt(localStorage.getItem('hw_wheel_attempts') || '0');
+        let savedWin = localStorage.getItem('hw_wheel_win');
+
+        function updateAttemptsUI() {
+            const left = Math.max(0, 3 - currentAttempt);
+            attemptsBadge.innerText = `Залишилось спроб: ${left} / 3 🔮`;
+
+            if (currentAttempt >= 3) {
+                spinBtn.disabled = true;
+                spinBtn.innerText = "Спроби вичерпано 🔒";
+            }
+        }
+
+        function drawWheel() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2 - 15;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < numSectors; i++) {
+                const angle = i * arc;
+                
+                // Малюємо сектор
+                ctx.beginPath();
+                ctx.fillStyle = sectors[i].color;
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arc);
+                ctx.lineTo(centerX, centerY);
+                ctx.fill();
+                ctx.strokeStyle = '#0d0614';
+                ctx.lineWidth = 6;
+                ctx.stroke();
+
+                // Текст
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arc / 2);
+                
+                ctx.textAlign = "center";
+                ctx.fillStyle = sectors[i].textColor;
+                ctx.font = "900 22px 'Segoe UI', sans-serif";
+                
+                ctx.fillText(sectors[i].label, radius * 0.62, 8);
+                ctx.restore();
+            }
+        }
+
+        drawWheel();
+        updateAttemptsUI();
+
+        // Якщо людина раніше вже крутила 3 рази
+        if (currentAttempt >= 3 && savedWin) {
+            setTimeout(() => {
+                const winData = JSON.parse(savedWin);
+                showWinModal(winData.discount, winData.code);
+            }, 500);
+        }
+
+        function spinWheel() {
+            if (currentAttempt >= 3) return;
+
+            spinBtn.disabled = true;
+            currentAttempt++;
+            localStorage.setItem('hw_wheel_attempts', currentAttempt);
+            updateAttemptsUI();
+
+            let targetSectorIndex;
+
+            if (currentAttempt < 3) {
+                // Перші 2 спроби — гарантований програш
+                const loseIndices = [0, 2, 4, 6, 7];
+                targetSectorIndex = loseIndices[Math.floor(Math.random() * loseIndices.length)];
+            } else {
+                // 3-тя спроба — розрахунок за шансами: 5% (50%), 7% (30%), 10% (20%)
+                const rand = Math.random() * 100;
+                if (rand < 50) {
+                    targetSectorIndex = 1; // Знижка 5%
+                } else if (rand < 80) {
+                    targetSectorIndex = 3; // Знижка 7%
+                } else {
+                    targetSectorIndex = 5; // Знижка 10%
+                }
+            }
+
+            // Розрахунок кута зупинки під верхню стрілку (3π/2)
+            const fullSpins = 5;
+            const sectorAngle = arc;
+            const targetSectorCenter = targetSectorIndex * sectorAngle + sectorAngle / 2;
+            const targetAngle = (3 * Math.PI / 2) - targetSectorCenter;
+
+            const currentMod = totalRotation % (2 * Math.PI);
+            let distanceToTarget = targetAngle - currentMod;
+            if (distanceToTarget < 0) {
+                distanceToTarget += 2 * Math.PI;
+            }
+
+            const rotationStep = (2 * Math.PI * fullSpins) + distanceToTarget;
+            totalRotation += rotationStep;
+
+            canvas.style.transform = `rotate(${totalRotation}rad)`;
+
+            setTimeout(() => {
+                handleSpinResult(sectors[targetSectorIndex]);
+            }, 4600);
+        }
+
+        function handleSpinResult(sector) {
+            if (currentAttempt < 3) {
+                modalTitle.innerText = "Не цього разу! 👻";
+                modalText.innerHTML = `Вам випало: <strong>${sector.label}</strong>.<br>Не замучуйся, у тебе є ще спроба!`;
+                promoBox.style.display = 'none';
+                modalMainBtn.innerText = "Спробувати ще 🔄";
+                modalMainBtn.onclick = closeModal;
+                modal.classList.add('active');
+            } else {
+                // Фінал на 3 спробу
+                let discount = "5%";
+                let promoCode = "SPOOKY5";
+
+                if (sector.id === 'discount7') {
+                    discount = "7%";
+                    promoCode = "SPOOKY7";
+                } else if (sector.id === 'discount10') {
+                    discount = "10%";
+                    promoCode = "SPOOKY10";
+                }
+
+                localStorage.setItem('hw_wheel_win', JSON.stringify({ discount, code: promoCode }));
+                showWinModal(discount, promoCode);
+            }
+        }
+
+        function showWinModal(discount, promoCode) {
+            modalTitle.innerText = "Вітаємо! 🎃🏆";
+            modalText.innerHTML = `Темні сили прихильні до тебе!<br>Твій виграш: <strong>Знижка ${discount}</strong> на набір пива або лимонадів!`;
+            promoBox.innerText = promoCode;
+            promoBox.style.display = 'block';
+            modalMainBtn.innerText = "Застосувати в Магазині 🍻";
+            modalMainBtn.onclick = () => {
+                window.open("https://underwood.beer/", "_blank");
+            };
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            if (currentAttempt < 3) {
+                spinBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
