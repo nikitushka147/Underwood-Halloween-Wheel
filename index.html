@@ -17,9 +17,9 @@
         body {
             background: #030108;
             background-image: 
-                radial-gradient(circle at 50% 12%, rgba(239, 68, 68, 0.45) 0%, transparent 50%),
-                radial-gradient(circle at 15% 85%, rgba(34, 197, 94, 0.25) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.25) 0%, transparent 45%);
+                radial-gradient(circle at 50% 15%, rgba(239, 68, 68, 0.45) 0%, transparent 55%),
+                radial-gradient(circle at 15% 85%, rgba(34, 197, 94, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.3) 0%, transparent 50%);
             color: #fff;
             min-height: 100vh;
             max-height: 100vh;
@@ -27,74 +27,44 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            padding: 10px 15px;
+            padding: 10px 12px;
             overflow: hidden;
             position: relative;
         }
 
-        /* 🕸️ ПАВУТИННЯ ПО ВСІХ 4 КУТАХ */
-        .web {
+        /* 🕸️ ПАВУТИНА В УСІХ 4 КУТКАХ */
+        .web-corner {
             position: absolute;
-            font-size: clamp(2.2rem, 8vw, 3.5rem);
+            font-size: 2.5rem;
             opacity: 0.35;
             pointer-events: none;
             z-index: 1;
-            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.4));
+            line-height: 1;
         }
-
-        .web-tl { top: 5px; left: 5px; }
-        .web-tr { top: 5px; right: 5px; transform: scaleX(-1); }
-        .web-bl { bottom: 5px; left: 5px; transform: scaleY(-1); }
-        .web-br { bottom: 5px; right: 5px; transform: scale(-1); }
+        .web-tl { top: 6px; left: 6px; }
+        .web-tr { top: 6px; right: 6px; transform: scaleX(-1); }
+        .web-bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
+        .web-br { bottom: 6px; right: 6px; transform: scale(-1); }
 
         /* 👻 РУХОМІ ЖАХАСТИКИ НА ФОНІ */
-        .ghost-bg {
+        .spooky-float {
             position: absolute;
-            bottom: 12%;
-            left: 8%;
-            font-size: 2.5rem;
-            opacity: 0.3;
             pointer-events: none;
             z-index: 1;
-            animation: floatGhost 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatGhost {
-            0% { transform: translateY(0) rotate(-5deg); opacity: 0.2; }
-            100% { transform: translateY(-25px) rotate(10deg); opacity: 0.45; }
-        }
-
-        .bat-bg {
-            position: absolute;
-            top: 20%;
-            right: 10%;
-            font-size: 2.2rem;
-            opacity: 0.35;
-            pointer-events: none;
-            z-index: 1;
-            animation: flyBat 7s ease-in-out infinite alternate;
-        }
-
-        @keyframes flyBat {
-            0% { transform: translate(0, 0) scale(0.9); }
-            50% { transform: translate(-30px, -15px) scale(1.1); }
-            100% { transform: translate(20px, 20px) scale(0.85); }
-        }
-
-        .decor-glow-eyes {
-            position: absolute;
-            top: 10px;
-            font-size: 3.2rem;
             opacity: 0.25;
-            filter: drop-shadow(0 0 18px #ef4444);
-            pointer-events: none;
-            animation: pulseEyes 3s infinite alternate;
-            z-index: 1;
+            filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.8));
+            animation: floatAnim 6s ease-in-out infinite alternate;
         }
 
-        @keyframes pulseEyes {
-            0% { transform: scale(0.95); opacity: 0.2; }
-            100% { transform: scale(1.15); opacity: 0.45; }
+        .bat-1 { top: 18%; left: 8%; font-size: 2rem; animation-duration: 5s; }
+        .bat-2 { top: 22%; right: 10%; font-size: 2.2rem; animation-duration: 7s; }
+        .ghost-bg { bottom: 20%; left: 12%; font-size: 2.5rem; animation-duration: 8s; }
+        .smile-bg { top: 8%; font-size: 3.5rem; animation-duration: 4s; }
+
+        @keyframes floatAnim {
+            0% { transform: translateY(0px) rotate(-5deg) scale(0.95); opacity: 0.2; }
+            50% { transform: translateY(-15px) rotate(5deg) scale(1.05); opacity: 0.35; }
+            100% { transform: translateY(10px) rotate(-3deg) scale(1); opacity: 0.2; }
         }
 
         header {
@@ -104,7 +74,7 @@
 
         h1 {
             color: #ef4444;
-            font-size: clamp(1.4rem, 5vw, 2.2rem);
+            font-size: clamp(1.4rem, 4.8vw, 2.1rem);
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 0 12px rgba(239, 68, 68, 0.9), 0 0 25px rgba(34, 197, 94, 0.7);
@@ -113,14 +83,14 @@
 
         p.subtitle {
             color: #4ade80;
-            font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+            font-size: clamp(0.72rem, 2.6vw, 0.9rem);
             text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
             font-weight: 600;
-            margin-top: 3px;
+            margin-top: 2px;
         }
 
         .attempts-badge {
-            background: rgba(239, 68, 68, 0.15);
+            background: rgba(239, 68, 68, 0.18);
             border: 1px solid #ef4444;
             color: #fca5a5;
             padding: 4px 14px;
@@ -131,50 +101,45 @@
             z-index: 2;
         }
 
-        /* 📐 РОЗМІР КОЛЕСА */
+        /* КОНТЕЙНЕР КОЛЕСА */
         .wheel-container {
             position: relative;
             width: min(82vw, 42vh, 340px);
             height: min(82vw, 42vh, 340px);
-            margin: 5px auto;
+            margin: 4px auto;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2;
         }
 
-        /* 👁️ ТОЧНЕ ТА РІВНЕ ПОЗИЦІОНУВАННЯ ОКА ТА СТРІЛКИ */
-        .pointer-box {
+        /* 👁️ ВКАЗІВНИК: РІВНЕ ОКО НАД ЧЕРВОНИМ ТРИКУТНИКОМ */
+        .pointer-wrapper {
             position: absolute;
-            top: -24px;
+            top: -18px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
             z-index: 10;
+            pointer-events: none;
         }
 
-        .eye-icon {
-            font-size: 1.3rem;
+        .pointer-eye {
+            font-size: 1.4rem;
             line-height: 1;
-            margin-bottom: -4px;
-            filter: drop-shadow(0 0 6px #ef4444);
-            animation: blinkEye 4s infinite;
+            margin-bottom: -6px;
+            filter: drop-shadow(0 0 8px #ef4444);
         }
 
-        @keyframes blinkEye {
-            0%, 90%, 100% { transform: scaleY(1); }
-            95% { transform: scaleY(0.1); }
-        }
-
-        .triangle-pointer {
+        .pointer-arrow {
             width: 0;
             height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 24px solid #ef4444;
-            filter: drop-shadow(0 0 8px #ef4444);
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 26px solid #ef4444;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));
         }
 
         canvas {
@@ -234,7 +199,7 @@
             transform: scale(1);
         }
 
-        /* Модальне вікно */
+        /* МОДАЛЬНЕ ВІКНО З ХРЕСТИКОМ */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -259,10 +224,11 @@
         }
 
         .modal-card {
+            position: relative;
             background: #0f051a;
             border: 2px solid #22c55e;
             color: #fff;
-            padding: 20px 18px;
+            padding: 24px 18px;
             border-radius: 18px;
             text-align: center;
             max-width: 360px;
@@ -274,6 +240,25 @@
 
         .modal-overlay.active .modal-card {
             transform: scale(1);
+        }
+
+        /* ❌ КНОПКА-ХРЕСТИК */
+        .close-x-btn {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .close-x-btn:hover {
+            color: #ef4444;
         }
 
         .modal-card h2 {
@@ -361,16 +346,17 @@
 </head>
 <body>
 
-    <!-- 🕸️ ПАВУТИННЯ В УСІХ 4 КУТАХ -->
-    <div class="web web-tl">🕸️</div>
-    <div class="web web-tr">🕸️</div>
-    <div class="web web-bl">🕸️</div>
-    <div class="web web-br">🕸️</div>
+    <!-- 🕸️ ПАВУТИНА У ВСІХ 4 КУТКАХ -->
+    <div class="web-corner web-tl">🕸️</div>
+    <div class="web-corner web-tr">🕸️</div>
+    <div class="web-corner web-bl">🕸️</div>
+    <div class="web-corner web-br">🕸️</div>
 
-    <!-- 👻 РУХОМІ ЖАХАСТИКИ -->
-    <div class="decor-glow-eyes">😈</div>
-    <div class="ghost-bg">👻</div>
-    <div class="bat-bg">🦇</div>
+    <!-- 👻 РУХОМІ ЖАХАСТИКИ БЕКГРАУНДУ -->
+    <div class="spooky-float bat-1">🦇</div>
+    <div class="spooky-float bat-2">🦇</div>
+    <div class="spooky-float ghost-bg">👻</div>
+    <div class="spooky-float smile-bg">😈</div>
 
     <header>
         <h1>Trick or Treat 🎃🩸</h1>
@@ -380,10 +366,10 @@
     <div class="attempts-badge" id="attemptsBadge">Залишилось спроб: 3 / 3 🔮</div>
 
     <div class="wheel-container">
-        <!-- ОКО ТА СТРІЛКА РІВНО ВЦЕНТРОВАНІ -->
-        <div class="pointer-box">
-            <div class="eye-icon">👁️</div>
-            <div class="triangle-pointer"></div>
+        <!-- 👁️ РІВНИЙ ВКАЗІВНИК З ОКОМ -->
+        <div class="pointer-wrapper">
+            <span class="pointer-eye">👁️</span>
+            <div class="pointer-arrow"></div>
         </div>
 
         <canvas id="wheel" width="800" height="800"></canvas>
@@ -392,9 +378,12 @@
 
     <button class="spin-btn" id="spinBtn" onclick="spinWheel()">КРУТИТИ КОЛЕСО ⚡</button>
 
-    <!-- ВСПЛИВАЮЧЕ ВІКНО -->
+    <!-- 🪟 МОДАЛЬНЕ ВІКНО -->
     <div class="modal-overlay" id="modal">
         <div class="modal-card">
+            <!-- ❌ КНОПКА ЗАКРИТТЯ ХРЕСТИК -->
+            <button class="close-x-btn" onclick="closeModal()">✕</button>
+
             <h2 id="modalTitle">Зловісне колесо! 👻</h2>
             <p id="modalText">Текст результату...</p>
             
@@ -424,25 +413,22 @@
         const modalMainBtn = document.getElementById('modalMainBtn');
         const attemptsBadge = document.getElementById('attemptsBadge');
 
-        // Сектори з розділеними текстами та іконками
+        // Сектори з адаптивною назвою та емодзі
         const sectors = [
-            { id: 'lose1', text: "Вкусив упир", icon: "🧛‍♂️", color: "#180928", textColor: "#4ade80" },
-            { id: 'discount5', text: "Знижка 5%", icon: "🎃", color: "#ef4444", textColor: "#ffffff" },
-            { id: 'lose2', text: "Привид вкрав", icon: "👻", color: "#052e16", textColor: "#22c55e" },
-            { id: 'discount7', text: "Знижка 7%", icon: "👁️", color: "#a855f7", textColor: "#ffffff" },
-            { id: 'lose3', text: "Зілля Невдачі", icon: "🧪", color: "#180928", textColor: "#fca5a5" },
-            { id: 'discount10', text: "Знижка 10%", icon: "🏆", color: "#22c55e", textColor: "#022c22" },
-            { id: 'lose4', text: "Забрав відьмак", icon: "🧙‍♂️", color: "#7f1d1d", textColor: "#fca5a5" },
-            { id: 'lose5', text: "Павук у кулі", icon: "🕷️", color: "#0f051a", textColor: "#4ade80" }
+            { id: 'lose1', text: "Вкусив упир", emoji: "🧛‍♂️", color: "#180928", textColor: "#4ade80" },
+            { id: 'discount5', text: "Знижка 5%", emoji: "🎃", color: "#ef4444", textColor: "#ffffff" },
+            { id: 'lose2', text: "Привид вкрав", emoji: "👻", color: "#052e16", textColor: "#22c55e" },
+            { id: 'discount7', text: "Знижка 7%", emoji: "👁️", color: "#a855f7", textColor: "#ffffff" },
+            { id: 'lose3', text: "Зілля Невдачі", emoji: "🧪", color: "#180928", textColor: "#fca5a5" },
+            { id: 'discount10', text: "Знижка 10%", emoji: "🏆", color: "#22c55e", textColor: "#022c22" },
+            { id: 'lose4', label: "Забрав відьмак", text: "Забрав відьмак", emoji: "🧙‍♂️", color: "#7f1d1d", textColor: "#fca5a5" },
+            { id: 'lose5', text: "Павук у кулі", emoji: "🕷️", color: "#0f051a", textColor: "#4ade80" }
         ];
 
         const numSectors = sectors.length;
         const arc = (2 * Math.PI) / numSectors;
         let totalRotation = 0;
 
-        // =========================================================================
-        // 🧪 ТЕСТУВАННЯ: ВИЗНАЧНИК КІЛЬКОСТІ СПРОБ ТА ЗБЕРЕЖЕННЯ В ПАМ'ЯТІ
-        // =========================================================================
         let currentAttempt = parseInt(localStorage.getItem('hw_wheel_attempts') || '0');
         let savedWin = localStorage.getItem('hw_wheel_win');
 
@@ -456,7 +442,7 @@
             }
         }
 
-        // 🎨 МАЛЮВАННЯ КОЛЕСА З АДАПТИВНИМ ТЕКСТОМ У 2 РЯДКИ
+        // 🎨 ЧІТКИЙ, АДАПТИВНИЙ МАЛЮНОК ТЕКСТУ В КОЛЕСІ
         function drawWheel() {
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
@@ -478,21 +464,21 @@
                 ctx.lineWidth = 6;
                 ctx.stroke();
 
-                // Рендер тексту та емодзі
+                // Рендеринг тексту
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(angle + arc / 2);
                 
                 ctx.textAlign = "center";
                 ctx.fillStyle = sectors[i].textColor;
-                
-                // Текст назви (перший рядок)
-                ctx.font = "bold 18px 'Segoe UI', sans-serif";
-                ctx.fillText(sectors[i].text, radius * 0.58, -3);
 
-                // Емодзі / Знижка (другий рядок)
-                ctx.font = "20px 'Segoe UI', sans-serif";
-                ctx.fillText(sectors[i].icon, radius * 0.58, 22);
+                // Назва сектора (великим чітким шрифтом)
+                ctx.font = "900 24px 'Segoe UI', sans-serif";
+                ctx.fillText(sectors[i].text, radius * 0.60, -2);
+
+                // Емодзі під текстом
+                ctx.font = "22px 'Segoe UI', sans-serif";
+                ctx.fillText(sectors[i].emoji, radius * 0.60, 26);
 
                 ctx.restore();
             }
@@ -556,9 +542,11 @@
         }
 
         function handleSpinResult(sector) {
+            const fullName = `${sector.text} ${sector.emoji}`;
+
             if (currentAttempt < 3) {
                 modalTitle.innerText = "Trick or Treat! 👻";
-                modalText.innerHTML = `Вам випало: <strong>${sector.text} ${sector.icon}</strong>.<br>Невдача! Але в тебе ще є спроба!`;
+                modalText.innerHTML = `Вам випало: <strong>${fullName}</strong>.<br>Невдача! Але в тебе ще є спроба!`;
                 promoContainer.style.display = 'none';
                 modalMainBtn.innerText = "Спробувати ще 🔄";
                 modalMainBtn.onclick = closeModal;
