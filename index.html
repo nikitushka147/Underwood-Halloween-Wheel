@@ -17,7 +17,7 @@
         body {
             background: #030108;
             background-image: 
-                radial-gradient(circle at 50% 12%, rgba(239, 68, 68, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 12%, rgba(239, 68, 68, 0.45) 0%, transparent 50%),
                 radial-gradient(circle at 15% 85%, rgba(34, 197, 94, 0.25) 0%, transparent 45%),
                 radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.25) 0%, transparent 45%);
             color: #fff;
@@ -32,13 +32,61 @@
             position: relative;
         }
 
-        /* Декоративні елементи */
+        /* 🕸️ ПАВУТИННЯ ПО ВСІХ 4 КУТАХ */
+        .web {
+            position: absolute;
+            font-size: clamp(2.2rem, 8vw, 3.5rem);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.4));
+        }
+
+        .web-tl { top: 5px; left: 5px; }
+        .web-tr { top: 5px; right: 5px; transform: scaleX(-1); }
+        .web-bl { bottom: 5px; left: 5px; transform: scaleY(-1); }
+        .web-br { bottom: 5px; right: 5px; transform: scale(-1); }
+
+        /* 👻 РУХОМІ ЖАХАСТИКИ НА ФОНІ */
+        .ghost-bg {
+            position: absolute;
+            bottom: 12%;
+            left: 8%;
+            font-size: 2.5rem;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatGhost 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatGhost {
+            0% { transform: translateY(0) rotate(-5deg); opacity: 0.2; }
+            100% { transform: translateY(-25px) rotate(10deg); opacity: 0.45; }
+        }
+
+        .bat-bg {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            font-size: 2.2rem;
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 1;
+            animation: flyBat 7s ease-in-out infinite alternate;
+        }
+
+        @keyframes flyBat {
+            0% { transform: translate(0, 0) scale(0.9); }
+            50% { transform: translate(-30px, -15px) scale(1.1); }
+            100% { transform: translate(20px, 20px) scale(0.85); }
+        }
+
         .decor-glow-eyes {
             position: absolute;
             top: 10px;
-            font-size: 3rem;
+            font-size: 3.2rem;
             opacity: 0.25;
-            filter: drop-shadow(0 0 15px #ef4444);
+            filter: drop-shadow(0 0 18px #ef4444);
             pointer-events: none;
             animation: pulseEyes 3s infinite alternate;
             z-index: 1;
@@ -46,7 +94,7 @@
 
         @keyframes pulseEyes {
             0% { transform: scale(0.95); opacity: 0.2; }
-            100% { transform: scale(1.1); opacity: 0.4; }
+            100% { transform: scale(1.15); opacity: 0.45; }
         }
 
         header {
@@ -56,7 +104,7 @@
 
         h1 {
             color: #ef4444;
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-size: clamp(1.4rem, 5vw, 2.2rem);
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 0 12px rgba(239, 68, 68, 0.9), 0 0 25px rgba(34, 197, 94, 0.7);
@@ -83,11 +131,11 @@
             z-index: 2;
         }
 
-        /* 📐 ОПТИМІЗОВАНО РОЗМІР КОЛЕСА ДЛЯ МОБІЛЬНИХ ТА ПК */
+        /* 📐 РОЗМІР КОЛЕСА */
         .wheel-container {
             position: relative;
-            width: min(80vw, 42vh, 340px);
-            height: min(80vw, 42vh, 340px);
+            width: min(82vw, 42vh, 340px);
+            height: min(82vw, 42vh, 340px);
             margin: 5px auto;
             display: flex;
             justify-content: center;
@@ -95,26 +143,38 @@
             z-index: 2;
         }
 
-        .pointer {
+        /* 👁️ ТОЧНЕ ТА РІВНЕ ПОЗИЦІОНУВАННЯ ОКА ТА СТРІЛКИ */
+        .pointer-box {
             position: absolute;
-            top: -14px;
+            top: -24px;
             left: 50%;
             transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 14px solid transparent;
-            border-right: 14px solid transparent;
-            border-top: 28px solid #ef4444;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             z-index: 10;
-            filter: drop-shadow(0 0 8px #ef4444);
         }
 
-        .pointer::after {
-            content: '👁️';
-            position: absolute;
-            top: -34px;
-            left: -12px;
-            font-size: 1.2rem;
+        .eye-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            margin-bottom: -4px;
+            filter: drop-shadow(0 0 6px #ef4444);
+            animation: blinkEye 4s infinite;
+        }
+
+        @keyframes blinkEye {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+
+        .triangle-pointer {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 24px solid #ef4444;
+            filter: drop-shadow(0 0 8px #ef4444);
         }
 
         canvas {
@@ -301,7 +361,16 @@
 </head>
 <body>
 
+    <!-- 🕸️ ПАВУТИННЯ В УСІХ 4 КУТАХ -->
+    <div class="web web-tl">🕸️</div>
+    <div class="web web-tr">🕸️</div>
+    <div class="web web-bl">🕸️</div>
+    <div class="web web-br">🕸️</div>
+
+    <!-- 👻 РУХОМІ ЖАХАСТИКИ -->
     <div class="decor-glow-eyes">😈</div>
+    <div class="ghost-bg">👻</div>
+    <div class="bat-bg">🦇</div>
 
     <header>
         <h1>Trick or Treat 🎃🩸</h1>
@@ -311,7 +380,12 @@
     <div class="attempts-badge" id="attemptsBadge">Залишилось спроб: 3 / 3 🔮</div>
 
     <div class="wheel-container">
-        <div class="pointer"></div>
+        <!-- ОКО ТА СТРІЛКА РІВНО ВЦЕНТРОВАНІ -->
+        <div class="pointer-box">
+            <div class="eye-icon">👁️</div>
+            <div class="triangle-pointer"></div>
+        </div>
+
         <canvas id="wheel" width="800" height="800"></canvas>
         <div class="center-cap">💀</div>
     </div>
@@ -350,15 +424,16 @@
         const modalMainBtn = document.getElementById('modalMainBtn');
         const attemptsBadge = document.getElementById('attemptsBadge');
 
+        // Сектори з розділеними текстами та іконками
         const sectors = [
-            { id: 'lose1', label: "Вкусив упир 🧛‍♂️", color: "#180928", textColor: "#4ade80" },
-            { id: 'discount5', label: "Знижка 5% 🎃", color: "#ef4444", textColor: "#ffffff" },
-            { id: 'lose2', label: "Привид вкрав! 👻", color: "#052e16", textColor: "#22c55e" },
-            { id: 'discount7', label: "Знижка 7% 👁️", color: "#a855f7", textColor: "#ffffff" },
-            { id: 'lose3', label: "Зілля Невдачі 🧪", color: "#180928", textColor: "#fca5a5" },
-            { id: 'discount10', label: "Знижка 10% 🏆", color: "#22c55e", textColor: "#022c22" },
-            { id: 'lose4', label: "Забрав відьмак 🧙‍♂️", color: "#7f1d1d", textColor: "#fca5a5" },
-            { id: 'lose5', label: "Павук у кулі 🕷️", color: "#0f051a", textColor: "#4ade80" }
+            { id: 'lose1', text: "Вкусив упир", icon: "🧛‍♂️", color: "#180928", textColor: "#4ade80" },
+            { id: 'discount5', text: "Знижка 5%", icon: "🎃", color: "#ef4444", textColor: "#ffffff" },
+            { id: 'lose2', text: "Привид вкрав", icon: "👻", color: "#052e16", textColor: "#22c55e" },
+            { id: 'discount7', text: "Знижка 7%", icon: "👁️", color: "#a855f7", textColor: "#ffffff" },
+            { id: 'lose3', text: "Зілля Невдачі", icon: "🧪", color: "#180928", textColor: "#fca5a5" },
+            { id: 'discount10', text: "Знижка 10%", icon: "🏆", color: "#22c55e", textColor: "#022c22" },
+            { id: 'lose4', text: "Забрав відьмак", icon: "🧙‍♂️", color: "#7f1d1d", textColor: "#fca5a5" },
+            { id: 'lose5', text: "Павук у кулі", icon: "🕷️", color: "#0f051a", textColor: "#4ade80" }
         ];
 
         const numSectors = sectors.length;
@@ -381,6 +456,7 @@
             }
         }
 
+        // 🎨 МАЛЮВАННЯ КОЛЕСА З АДАПТИВНИМ ТЕКСТОМ У 2 РЯДКИ
         function drawWheel() {
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
@@ -391,6 +467,7 @@
             for (let i = 0; i < numSectors; i++) {
                 const angle = i * arc;
                 
+                // Малюємо сектор
                 ctx.beginPath();
                 ctx.fillStyle = sectors[i].color;
                 ctx.moveTo(centerX, centerY);
@@ -401,15 +478,22 @@
                 ctx.lineWidth = 6;
                 ctx.stroke();
 
+                // Рендер тексту та емодзі
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(angle + arc / 2);
                 
                 ctx.textAlign = "center";
                 ctx.fillStyle = sectors[i].textColor;
-                ctx.font = "900 22px 'Segoe UI', sans-serif";
                 
-                ctx.fillText(sectors[i].label, radius * 0.62, 8);
+                // Текст назви (перший рядок)
+                ctx.font = "bold 18px 'Segoe UI', sans-serif";
+                ctx.fillText(sectors[i].text, radius * 0.58, -3);
+
+                // Емодзі / Знижка (другий рядок)
+                ctx.font = "20px 'Segoe UI', sans-serif";
+                ctx.fillText(sectors[i].icon, radius * 0.58, 22);
+
                 ctx.restore();
             }
         }
@@ -425,7 +509,7 @@
         }
 
         function spinWheel() {
-            if (currentAttempt >= 20) return;
+            if (currentAttempt >= 3) return;
 
             spinBtn.disabled = true;
 
@@ -474,7 +558,7 @@
         function handleSpinResult(sector) {
             if (currentAttempt < 3) {
                 modalTitle.innerText = "Trick or Treat! 👻";
-                modalText.innerHTML = `Вам випало: <strong>${sector.label}</strong>.<br>Невдача! Але в тебе ще є спроба!`;
+                modalText.innerHTML = `Вам випало: <strong>${sector.text} ${sector.icon}</strong>.<br>Невдача! Але в тебе ще є спроба!`;
                 promoContainer.style.display = 'none';
                 modalMainBtn.innerText = "Спробувати ще 🔄";
                 modalMainBtn.onclick = closeModal;
