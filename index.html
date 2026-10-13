@@ -14,10 +14,11 @@
         }
 
         body {
-            background: #0d0614;
+            background: #05020a;
             background-image: 
-                radial-gradient(circle at 50% 30%, rgba(147, 51, 234, 0.15) 0%, transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 50% 15%, rgba(239, 68, 68, 0.35) 0%, transparent 55%),
+                radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.25) 0%, transparent 50%);
             color: #fff;
             min-height: 100vh;
             display: flex;
@@ -29,125 +30,116 @@
             position: relative;
         }
 
-        /* Декоративне павутиння у кутках */
         body::before {
-            content: '🕸️';
+            content: '😈';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 3rem;
-            opacity: 0.3;
+            top: 20px;
+            font-size: 4.5rem;
+            opacity: 0.15;
+            filter: drop-shadow(0 0 20px #ef4444);
             pointer-events: none;
+            animation: pulseGlow 3s infinite alternate;
         }
 
-        body::after {
-            content: '🕸️';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 3rem;
-            opacity: 0.3;
-            transform: scaleX(-1);
-            pointer-events: none;
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.15; }
+            100% { transform: scale(1.15); opacity: 0.3; }
         }
 
         h1 {
-            margin-bottom: 6px;
-            color: #f97316;
+            margin-bottom: 4px;
+            color: #ef4444;
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 0 0 12px rgba(249, 115, 22, 0.6), 0 0 25px rgba(147, 51, 234, 0.8);
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.8), 0 0 30px rgba(34, 197, 94, 0.6);
         }
 
         p.subtitle {
-            margin-bottom: 15px;
-            color: #c084fc;
+            margin-bottom: 12px;
+            color: #4ade80;
             text-align: center;
             font-size: 0.95rem;
-            text-shadow: 0 0 8px rgba(192, 132, 252, 0.4);
+            text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+            font-weight: 600;
         }
 
         /* Лічильник спроб */
         .attempts-badge {
-            background: rgba(249, 115, 22, 0.15);
-            border: 1px solid #f97316;
-            color: #fdba74;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: bold;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(249, 115, 22, 0.2);
+            margin-bottom: 15px;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
         }
 
-        /* Адаптивний контейнер колеса */
+        /* 📐 ЗБІЛЬШЕНО РОЗМІР КОЛЕСА (з 360px до 430px) */
         .wheel-container {
             position: relative;
             width: 100%;
-            max-width: 360px;
+            max-width: 430px;
             aspect-ratio: 1 / 1;
-            margin: 0 auto 25px auto;
+            margin: 0 auto 20px auto;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Гарбузова/Кажаняча стрілка зверху */
         .pointer {
             position: absolute;
-            top: -16px;
+            top: -18px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 18px solid transparent;
-            border-right: 18px solid transparent;
-            border-top: 36px solid #f97316;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ef4444;
             z-index: 10;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.9)) drop-shadow(0 0 6px #f97316);
+            filter: drop-shadow(0 0 10px #ef4444);
         }
 
         .pointer::after {
-            content: '🎃';
+            content: '👁️';
             position: absolute;
-            top: -42px;
-            left: -14px;
-            font-size: 1.5rem;
+            top: -46px;
+            left: -16px;
+            font-size: 1.7rem;
         }
 
-        /* Canvas */
         canvas {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            box-shadow: 0 0 30px rgba(147, 51, 234, 0.4), 0 0 15px rgba(249, 115, 22, 0.3), inset 0 0 20px rgba(0,0,0,0.8);
+            box-shadow: 0 0 35px rgba(239, 68, 68, 0.5), 0 0 20px rgba(34, 197, 94, 0.4), inset 0 0 20px rgba(0,0,0,0.9);
             transition: transform 4.5s cubic-bezier(0.15, 0.9, 0.1, 1);
         }
 
-        /* Центр колеса */
         .center-cap {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: #18092c;
-            border: 4px solid #f97316;
+            width: 55px;
+            height: 55px;
+            background: #090312;
+            border: 3px solid #22c55e;
             border-radius: 50%;
             z-index: 5;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.4rem;
-            box-shadow: 0 0 10px rgba(249, 115, 22, 0.6);
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
         }
 
-        /* Кнопка запуску */
         .spin-btn {
-            background: linear-gradient(135deg, #f97316, #a855f7);
+            background: linear-gradient(135deg, #ef4444, #22c55e);
             color: #fff;
             font-size: 1.2rem;
             font-weight: 900;
@@ -155,7 +147,7 @@
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.4);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
             transition: all 0.2s ease;
             width: 100%;
             max-width: 320px;
@@ -165,12 +157,12 @@
 
         .spin-btn:hover:not(:disabled) {
             transform: scale(1.04);
-            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.6);
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.8);
         }
 
         .spin-btn:disabled {
-            background: #332244;
-            color: #776688;
+            background: #271428;
+            color: #6b586e;
             cursor: not-allowed;
             box-shadow: none;
             transform: scale(1);
@@ -183,8 +175,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(5, 2, 10, 0.85);
-            backdrop-filter: blur(5px);
+            background: rgba(3, 1, 8, 0.9);
+            backdrop-filter: blur(6px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -201,15 +193,15 @@
         }
 
         .modal-card {
-            background: #18092c;
-            border: 2px solid #a855f7;
+            background: #0f051a;
+            border: 2px solid #22c55e;
             color: #fff;
             padding: 25px 20px;
             border-radius: 20px;
             text-align: center;
             max-width: 380px;
             width: 100%;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.4), 0 0 15px rgba(239, 68, 68, 0.3);
             transform: scale(0.8);
             transition: transform 0.3s ease;
         }
@@ -219,30 +211,64 @@
         }
 
         .modal-card h2 {
-            color: #f97316;
+            color: #ef4444;
             font-size: 1.8rem;
             margin-bottom: 10px;
             text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
         }
 
         .modal-card p {
-            color: #e9d5ff;
+            color: #e2e8f0;
             font-size: 1rem;
             margin-bottom: 20px;
             line-height: 1.4;
         }
 
+        .promo-container {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         .promo-code-box {
-            background: #2e1052;
-            border: 2px dashed #f97316;
+            background: #180928;
+            border: 2px dashed #22c55e;
             padding: 12px;
             border-radius: 12px;
             font-size: 1.6rem;
             font-weight: 900;
-            color: #fef08a;
+            color: #4ade80;
             letter-spacing: 2px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 8px rgba(254, 240, 138, 0.5);
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
+        }
+
+        .copy-btn {
+            background: #22c55e;
+            color: #05020a;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: #4ade80;
+            transform: scale(1.02);
+        }
+
+        .copy-btn.copied {
+            background: #3b82f6;
+            color: #ffffff;
         }
 
         .modal-actions {
@@ -254,7 +280,7 @@
         .modal-btn {
             display: block;
             width: 100%;
-            background: linear-gradient(135deg, #f97316, #ea580c);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
             text-decoration: none;
             font-weight: bold;
@@ -262,7 +288,7 @@
             padding: 12px 15px;
             border-radius: 25px;
             border: none;
-            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
             transition: background 0.2s, transform 0.2s;
             cursor: pointer;
         }
@@ -270,22 +296,11 @@
         .modal-btn:hover {
             transform: scale(1.02);
         }
-
-        .modal-btn-secondary {
-            background: #3b0764;
-            color: #d8b4fe;
-            border: 1px solid #a855f7;
-            box-shadow: none;
-        }
-
-        .modal-btn-secondary:hover {
-            background: #581c87;
-        }
     </style>
 </head>
 <body>
 
-    <h1>Halloween Fortune 🎃👻</h1>
+    <h1>Terror Fortune 🎃🩸</h1>
     <p class="subtitle">Крути зловісне колесо та вигравай знижки!</p>
 
     <div class="attempts-badge" id="attemptsBadge">Залишилось спроб: 3 / 3 🔮</div>
@@ -293,7 +308,7 @@
     <div class="wheel-container">
         <div class="pointer"></div>
         <canvas id="wheel" width="800" height="800"></canvas>
-        <div class="center-cap">🦇</div>
+        <div class="center-cap">💀</div>
     </div>
 
     <button class="spin-btn" id="spinBtn" onclick="spinWheel()">КРУТИТИ КОЛЕСО ⚡</button>
@@ -303,7 +318,13 @@
         <div class="modal-card">
             <h2 id="modalTitle">Зловісне колесо! 👻</h2>
             <p id="modalText">Текст результату...</p>
-            <div id="promoBox" style="display: none;" class="promo-code-box"></div>
+            
+            <div class="promo-container" id="promoContainer">
+                <div id="promoBox" class="promo-code-box">SPOOKY5</div>
+                <button class="copy-btn" id="copyBtn" onclick="copyPromoCode()">
+                    <span>📋 Скопіювати промокод</span>
+                </button>
+            </div>
             
             <div class="modal-actions">
                 <button class="modal-btn" id="modalMainBtn" onclick="closeModal()">Продовжити 🔮</button>
@@ -318,27 +339,33 @@
         const modal = document.getElementById('modal');
         const modalTitle = document.getElementById('modalTitle');
         const modalText = document.getElementById('modalText');
+        const promoContainer = document.getElementById('promoContainer');
         const promoBox = document.getElementById('promoBox');
+        const copyBtn = document.getElementById('copyBtn');
         const modalMainBtn = document.getElementById('modalMainBtn');
         const attemptsBadge = document.getElementById('attemptsBadge');
 
-        // Сектори колеса
         const sectors = [
-            { id: 'lose1', label: "Спробуй ще! 🧙‍♀️", color: "#2e1052", textColor: "#d8b4fe" },
-            { id: 'discount5', label: "Знижка 5% 🎃", color: "#f97316", textColor: "#000000" },
-            { id: 'lose2', label: "Привид вкрав! 👻", color: "#4c1d95", textColor: "#ffffff" },
-            { id: 'discount7', label: "Знижка 7% 🦇", color: "#a855f7", textColor: "#ffffff" },
-            { id: 'lose3', label: "Зілля Невдачі 🧪", color: "#2e1052", textColor: "#d8b4fe" },
-            { id: 'discount10', label: "Знижка 10% 🏆", color: "#eab308", textColor: "#000000" },
-            { id: 'lose4', label: "Гарбузовий гармидер 🌾", color: "#4c1d95", textColor: "#ffffff" },
-            { id: 'lose5', label: "Промах! 🧹", color: "#1e1b4b", textColor: "#c084fc" }
+            { id: 'lose1', label: "Спробуй ще! 🧙‍♀️", color: "#180928", textColor: "#4ade80" },
+            { id: 'discount5', label: "Знижка 5% 🎃", color: "#ef4444", textColor: "#ffffff" },
+            { id: 'lose2', label: "Привид вкрав! 👻", color: "#052e16", textColor: "#22c55e" },
+            { id: 'discount7', label: "Знижка 7% 👁️", color: "#a855f7", textColor: "#ffffff" },
+            { id: 'lose3', label: "Зілля Невдачі 🧪", color: "#180928", textColor: "#fca5a5" },
+            { id: 'discount10', label: "Знижка 10% 🏆", color: "#22c55e", textColor: "#022c22" },
+            { id: 'lose4', label: "Жахливий монстр 👹", color: "#7f1d1d", textColor: "#fca5a5" },
+            { id: 'lose5', label: "Промах! 🧹", color: "#0f051a", textColor: "#4ade80" }
         ];
 
         const numSectors = sectors.length;
         const arc = (2 * Math.PI) / numSectors;
         let totalRotation = 0;
 
-        // Зчитуємо кількість використаних спроб з localStorage
+        // =========================================================================
+        // 🧪 ТЕСТУВАННЯ: ВИЗНАЧНИК КІЛЬКОСТІ СПРОБ ТА ЗБЕРЕЖЕННЯ В ПАМ'ЯТІ
+        // =========================================================================
+        // Щоб повністю скинути лічильник під час тесту, можна тимчасово розкоментувати цей рядок:
+        // localStorage.removeItem('hw_wheel_attempts'); localStorage.removeItem('hw_wheel_win');
+
         let currentAttempt = parseInt(localStorage.getItem('hw_wheel_attempts') || '0');
         let savedWin = localStorage.getItem('hw_wheel_win');
 
@@ -346,6 +373,7 @@
             const left = Math.max(0, 3 - currentAttempt);
             attemptsBadge.innerText = `Залишилось спроб: ${left} / 3 🔮`;
 
+            // 🧪 ТЕСТУВАННЯ: Закоментуйте умову нижче, щоб кнопка НЕ блокувалась після 3 спроб
             if (currentAttempt >= 3) {
                 spinBtn.disabled = true;
                 spinBtn.innerText = "Спроби вичерпано 🔒";
@@ -362,18 +390,16 @@
             for (let i = 0; i < numSectors; i++) {
                 const angle = i * arc;
                 
-                // Малюємо сектор
                 ctx.beginPath();
                 ctx.fillStyle = sectors[i].color;
                 ctx.moveTo(centerX, centerY);
                 ctx.arc(centerX, centerY, radius, angle, angle + arc);
                 ctx.lineTo(centerX, centerY);
                 ctx.fill();
-                ctx.strokeStyle = '#0d0614';
+                ctx.strokeStyle = '#05020a';
                 ctx.lineWidth = 6;
                 ctx.stroke();
 
-                // Текст
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(angle + arc / 2);
@@ -390,7 +416,7 @@
         drawWheel();
         updateAttemptsUI();
 
-        // Якщо людина раніше вже крутила 3 рази
+        // 🧪 ТЕСТУВАННЯ: Якщо ви виграли раніше, тут показується модальне вікно перемоги.
         if (currentAttempt >= 3 && savedWin) {
             setTimeout(() => {
                 const winData = JSON.parse(savedWin);
@@ -399,32 +425,37 @@
         }
 
         function spinWheel() {
+            // 🧪 ТЕСТУВАННЯ: Закоментуйте перевірку нижче, щоб крутити безліч разів
             if (currentAttempt >= 3) return;
 
             spinBtn.disabled = true;
-            currentAttempt++;
-            localStorage.setItem('hw_wheel_attempts', currentAttempt);
+
+            // =========================================================================
+            // 🧪 ТЕСТУВАННЯ: ІНКРЕМЕНТ ТА ЗБЕРЕЖЕННЯ СПРОБ
+            // Закоментуйте ці 2 рядки, щоб спроби НЕ витрачалися та НЕ зберігалися:
+            //currentAttempt++;
+           // localStorage.setItem('hw_wheel_attempts', currentAttempt);
+            // =========================================================================
+
             updateAttemptsUI();
 
             let targetSectorIndex;
 
+            // 🧪 ТЕСТУВАННЯ: Логіка випадіння (перші 2 спроби — програш, 3-тя — виграш)
             if (currentAttempt < 3) {
-                // Перші 2 спроби — гарантований програш
                 const loseIndices = [0, 2, 4, 6, 7];
                 targetSectorIndex = loseIndices[Math.floor(Math.random() * loseIndices.length)];
             } else {
-                // 3-тя спроба — розрахунок за шансами: 5% (50%), 7% (30%), 10% (20%)
                 const rand = Math.random() * 100;
                 if (rand < 50) {
-                    targetSectorIndex = 1; // Знижка 5%
+                    targetSectorIndex = 1; // 5%
                 } else if (rand < 80) {
-                    targetSectorIndex = 3; // Знижка 7%
+                    targetSectorIndex = 3; // 7%
                 } else {
-                    targetSectorIndex = 5; // Знижка 10%
+                    targetSectorIndex = 5; // 10%
                 }
             }
 
-            // Розрахунок кута зупинки під верхню стрілку (3π/2)
             const fullSpins = 5;
             const sectorAngle = arc;
             const targetSectorCenter = targetSectorIndex * sectorAngle + sectorAngle / 2;
@@ -450,12 +481,11 @@
             if (currentAttempt < 3) {
                 modalTitle.innerText = "Не цього разу! 👻";
                 modalText.innerHTML = `Вам випало: <strong>${sector.label}</strong>.<br>Не замучуйся, у тебе є ще спроба!`;
-                promoBox.style.display = 'none';
+                promoContainer.style.display = 'none';
                 modalMainBtn.innerText = "Спробувати ще 🔄";
                 modalMainBtn.onclick = closeModal;
                 modal.classList.add('active');
             } else {
-                // Фінал на 3 спробу
                 let discount = "5%";
                 let promoCode = "SPOOKY5";
 
@@ -476,12 +506,24 @@
             modalTitle.innerText = "Вітаємо! 🎃🏆";
             modalText.innerHTML = `Темні сили прихильні до тебе!<br>Твій виграш: <strong>Знижка ${discount}</strong> на набір пива або лимонадів!`;
             promoBox.innerText = promoCode;
-            promoBox.style.display = 'block';
+            promoContainer.style.display = 'flex';
+            
+            copyBtn.classList.remove('copied');
+            copyBtn.innerHTML = '<span>📋 Скопіювати промокод</span>';
+
             modalMainBtn.innerText = "Застосувати в Магазині 🍻";
             modalMainBtn.onclick = () => {
                 window.open("https://underwood.beer/", "_blank");
             };
             modal.classList.add('active');
+        }
+
+        function copyPromoCode() {
+            const codeText = promoBox.innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                copyBtn.classList.add('copied');
+                copyBtn.innerHTML = '<span>✅ Скопійовано!</span>';
+            });
         }
 
         function closeModal() {
