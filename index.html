@@ -35,7 +35,7 @@
         /* 🕸️ ПАВУТИНА У 4 КУТКАХ */
         .web-corner {
             position: absolute;
-            font-size: 2.5rem;
+            font-size: clamp(2.5rem, 4vw, 4rem);
             opacity: 0.35;
             pointer-events: none;
             z-index: 1;
@@ -46,7 +46,7 @@
         .web-bl { bottom: 6px; left: 6px; transform: scaleY(-1); -webkit-transform: scaleY(-1); }
         .web-br { bottom: 6px; right: 6px; transform: scale(-1); -webkit-transform: scale(-1); }
 
-        /* 👻 РУХОМІ ЖАХАСТИКИ (з підтримкою -webkit для iOS) */
+        /* 👻 РУХОМІ ЖАХАСТИКИ */
         .spooky-float {
             position: absolute;
             pointer-events: none;
@@ -58,19 +58,14 @@
             -webkit-animation: floatAnim 5s ease-in-out infinite alternate;
         }
 
-        .bat-1 { top: 16%; left: 8%; font-size: 2.2rem; animation-duration: 4s; -webkit-animation-duration: 4s; }
-        .bat-2 { top: 20%; right: 8%; font-size: 2.4rem; animation-duration: 6s; -webkit-animation-duration: 6s; }
-        .ghost-bg { bottom: 18%; left: 10%; font-size: 2.6rem; animation-duration: 7s; -webkit-animation-duration: 7s; }
-        .smile-bg { top: 6%; font-size: 3.2rem; animation-duration: 3.5s; -webkit-animation-duration: 3.5s; }
+        .bat-1 { top: 16%; left: 8%; font-size: clamp(2.2rem, 3.5vw, 3.5rem); animation-duration: 4s; }
+        .bat-2 { top: 20%; right: 8%; font-size: clamp(2.4rem, 3.8vw, 3.8rem); animation-duration: 6s; }
+        .ghost-bg { bottom: 18%; left: 10%; font-size: clamp(2.6rem, 4vw, 4.2rem); animation-duration: 7s; }
+        .smile-bg { top: 6%; font-size: clamp(3.2rem, 5vw, 5.5rem); animation-duration: 3.5s; }
 
         @keyframes floatAnim {
             0% { transform: translateY(0px) rotate(-5deg); -webkit-transform: translateY(0px) rotate(-5deg); opacity: 0.2; }
             100% { transform: translateY(-18px) rotate(6deg); -webkit-transform: translateY(-18px) rotate(6deg); opacity: 0.45; }
-        }
-
-        @-webkit-keyframes floatAnim {
-            0% { -webkit-transform: translateY(0px) rotate(-5deg); opacity: 0.2; }
-            100% { -webkit-transform: translateY(-18px) rotate(6deg); opacity: 0.45; }
         }
 
         header {
@@ -80,7 +75,7 @@
 
         h1 {
             color: #ef4444;
-            font-size: clamp(1.4rem, 4.8vw, 2.1rem);
+            font-size: clamp(1.4rem, 4.8vw, 2.8rem);
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 0 12px rgba(239, 68, 68, 0.9), 0 0 25px rgba(34, 197, 94, 0.7);
@@ -89,24 +84,25 @@
 
         p.subtitle {
             color: #4ade80;
-            font-size: clamp(0.72rem, 2.6vw, 0.9rem);
+            font-size: clamp(0.72rem, 2.6vw, 1.1rem);
             text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
             font-weight: 600;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .attempts-badge {
             background: rgba(239, 68, 68, 0.18);
             border: 1px solid #ef4444;
             color: #fca5a5;
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 20px;
-            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            font-size: clamp(0.75rem, 2.2vw, 1rem);
             font-weight: bold;
             box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
             z-index: 2;
         }
 
+        /* 📐 КОНТЕЙНЕР КОЛЕСА (АДАПТИВНИЙ) */
         .wheel-container {
             position: relative;
             width: min(82vw, 42vh, 340px);
@@ -118,7 +114,44 @@
             z-index: 2;
         }
 
-        /* 👁️ ВКАЗІВНИК: ОКО ЧІТКО НАД ТРИКУТНИКОМ */
+        /* 🖥️ ДЛЯ ПК І ВЕЛИКИХ ЕКРАНІВ (ЗБІЛЬШЕННЯ) */
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .wheel-container {
+                width: min(70vw, 55vh, 480px);
+                height: min(70vw, 55vh, 480px);
+            }
+            .eye-ball {
+                width: 32px !important;
+                height: 32px !important;
+            }
+            .eye-pupil {
+                width: 12px !important;
+                height: 12px !important;
+            }
+            .pointer-arrow {
+                border-left-width: 18px !important;
+                border-right-width: 18px !important;
+                border-top-width: 32px !important;
+            }
+            .pointer-box {
+                top: -28px !important;
+            }
+            .center-cap {
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 1.6rem !important;
+            }
+            .spin-btn {
+                max-width: 380px !important;
+                padding: 16px 36px !important;
+                font-size: 1.3rem !important;
+            }
+        }
+
+        /* 👁️ ВКАЗІВНИК МІЖ ОКОМ ТА ТРИКУТНИКОМ */
         .pointer-box {
             position: absolute;
             top: -22px;
@@ -193,7 +226,7 @@
         .spin-btn {
             background: linear-gradient(135deg, #ef4444, #22c55e);
             color: #fff;
-            font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+            font-size: clamp(0.95rem, 3.5vw, 1.2rem);
             font-weight: 900;
             padding: 12px 28px;
             border: none;
@@ -202,7 +235,7 @@
             box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
             transition: all 0.2s ease;
             width: 90%;
-            max-width: 300px;
+            max-width: 320px;
             text-transform: uppercase;
             letter-spacing: 1px;
             z-index: 2;
@@ -221,6 +254,7 @@
             box-shadow: none;
         }
 
+        /* МОДАЛЬНЕ ВІКНО */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -249,10 +283,10 @@
             background: #0f051a;
             border: 2px solid #22c55e;
             color: #fff;
-            padding: 24px 18px;
+            padding: 24px 20px;
             border-radius: 18px;
             text-align: center;
-            max-width: 360px;
+            max-width: 380px;
             width: 100%;
             box-shadow: 0 0 25px rgba(34, 197, 94, 0.4), 0 0 15px rgba(239, 68, 68, 0.3);
             transform: scale(0.8);
@@ -287,7 +321,7 @@
 
         .modal-card p {
             color: #e2e8f0;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 16px;
             line-height: 1.35;
         }
@@ -304,7 +338,7 @@
             border: 2px dashed #22c55e;
             padding: 10px;
             border-radius: 10px;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 900;
             color: #4ade80;
             letter-spacing: 2px;
@@ -317,7 +351,7 @@
             padding: 10px 14px;
             border-radius: 20px;
             font-weight: 900;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
@@ -339,8 +373,8 @@
             color: white;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.95rem;
-            padding: 10px 14px;
+            font-size: 1rem;
+            padding: 11px 14px;
             border-radius: 22px;
             border: none;
             cursor: pointer;
@@ -432,13 +466,14 @@
             const left = Math.max(0, 3 - currentAttempt);
             attemptsBadge.innerText = `Залишилось спроб: ${left} / 3 🔮`;
 
-            // 🧪 КНОПКУ НЕ БЛОКУЄМО ДЛЯ ТЕСТУВАННЯ
+            // 🧪 КНОПКА НЕ БЛОКУЄТЬСЯ ДЛЯ ТЕСТУВАННЯ
             // if (currentAttempt >= 3) {
             //     spinBtn.disabled = true;
             //     spinBtn.innerText = "Спроби вичерпано 🔒";
             // }
         }
 
+        // 🎨 ЧІТКИЙ, ПРОПОРЦІЙНИЙ РЕНДЕРИНГ ДЛЯ ПК І МОБІЛЬНИХ
         function drawWheel() {
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
@@ -466,12 +501,15 @@
                 ctx.textAlign = "center";
                 ctx.fillStyle = sectors[i].textColor;
 
-                // 📐 ЧІТКИЙ ВІДСТУП ТА РОЗМІР ТЕКСТУ
-                ctx.font = "bold 20px 'Segoe UI', sans-serif";
-                ctx.fillText(sectors[i].text, radius * 0.58, -3);
+                // 📐 ДИНАМІЧНИЙ ВЕЛИКИЙ ШРИФТ ДЛЯ БУДЬ-ЯКИХ ДИСПЛЕЇВ
+                const textFontSize = Math.round(canvas.width * 0.032); // ~26px
+                const emojiFontSize = Math.round(canvas.width * 0.03);  // ~24px
 
-                ctx.font = "20px 'Segoe UI', sans-serif";
-                ctx.fillText(sectors[i].emoji, radius * 0.58, 22);
+                ctx.font = `bold ${textFontSize}px 'Segoe UI', sans-serif`;
+                ctx.fillText(sectors[i].text, radius * 0.58, -4);
+
+                ctx.font = `${emojiFontSize}px 'Segoe UI', sans-serif`;
+                ctx.fillText(sectors[i].emoji, radius * 0.58, textFontSize + 4);
 
                 ctx.restore();
             }
