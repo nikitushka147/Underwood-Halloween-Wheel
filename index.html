@@ -533,8 +533,8 @@
             // =========================================================================
             // 🧪 ТЕСТУВАННЯ: ІНКРЕМЕНТ ТА ЗБЕРЕЖЕННЯ СПРОБ
             // Закоментуйте ці 2 рядки, щоб спроби НЕ витрачалися та НЕ зберігалися в браузері:
-            currentAttempt++;
-            localStorage.setItem('hw_wheel_attempts', currentAttempt);
+           // currentAttempt++;
+            //localStorage.setItem('hw_wheel_attempts', currentAttempt);
             // =========================================================================
 
             updateAttemptsUI();
@@ -605,7 +605,7 @@
 
         function showWinModal(discount, promoCode) {
             modalTitle.innerText = "Treat! 🎃🏆";
-            modalText.innerHTML = `Вітаємо! Твій виграш: <strong>Знижка ${discount}</strong> на набір крафтового пива або лимонадів Underwood!`;
+            modalText.innerHTML = `Вітаємо! Твій виграш: <strong>Знижка ${discount}</strong> на напої Underwood!`;
             promoBox.innerText = promoCode;
             promoContainer.style.display = 'flex';
             
