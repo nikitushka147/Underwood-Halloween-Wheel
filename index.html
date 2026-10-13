@@ -575,15 +575,21 @@
                 modal.classList.add('active');
             } else {
                 let discount = "5%";
-                let promoCode = "SPOOKY5";
+                // Базово закодований промокод "SPOOKY5"
+                let encodedCode = "U1BPT0tZNQ==";
 
                 if (sector.id === 'discount7') {
                     discount = "7%";
-                    promoCode = "TRICKY7";
+                    // Закодований промокод "TRICKY7"
+                    encodedCode = "VFJJQ0tZNw==";
                 } else if (sector.id === 'discount10') {
                     discount = "10%";
-                    promoCode = "TREAT10";
+                    // Закодований промокод "TREAT10"
+                    encodedCode = "VFJFQVQxMA==";
                 }
+
+                // Розкодовуємо прямо перед відображенням
+                const promoCode = atob(encodedCode);
 
                 localStorage.setItem('hw_wheel_win', JSON.stringify({ discount, code: promoCode }));
                 showWinModal(discount, promoCode);
