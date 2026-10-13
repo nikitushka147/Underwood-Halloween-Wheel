@@ -46,7 +46,7 @@
         .web-bl { bottom: 6px; left: 6px; transform: scaleY(-1); -webkit-transform: scaleY(-1); }
         .web-br { bottom: 6px; right: 6px; transform: scale(-1); -webkit-transform: scale(-1); }
 
-        /* 👻 РУХОМІ ЖАХАСТИКИ */
+        /* 👻 БАГАТО РУХОМИХ ЖАХАСТИКІВ (Кажани, Привиди, Скелети, Гарбузи) */
         .spooky-float {
             position: absolute;
             pointer-events: none;
@@ -58,14 +58,18 @@
             -webkit-animation: floatAnim 5s ease-in-out infinite alternate;
         }
 
-        .bat-1 { top: 16%; left: 8%; font-size: clamp(2.2rem, 3.5vw, 3.5rem); animation-duration: 4s; }
-        .bat-2 { top: 20%; right: 8%; font-size: clamp(2.4rem, 3.8vw, 3.8rem); animation-duration: 6s; }
-        .ghost-bg { bottom: 18%; left: 10%; font-size: clamp(2.6rem, 4vw, 4.2rem); animation-duration: 7s; }
-        .smile-bg { top: 6%; font-size: clamp(3.2rem, 5vw, 5.5rem); animation-duration: 3.5s; }
+        .bat-1 { top: 12%; left: 6%; font-size: clamp(2rem, 3.5vw, 3.2rem); animation-duration: 4s; }
+        .bat-2 { top: 18%; right: 6%; font-size: clamp(2.2rem, 3.8vw, 3.5rem); animation-duration: 5.5s; }
+        .ghost-1 { bottom: 18%; left: 8%; font-size: clamp(2.4rem, 4vw, 3.8rem); animation-duration: 6.5s; }
+        .ghost-2 { top: 45%; right: 5%; font-size: clamp(2rem, 3.2vw, 3rem); animation-duration: 7s; }
+        .jack-1 { bottom: 10%; right: 12%; font-size: clamp(2.5rem, 4.2vw, 4rem); animation-duration: 4.8s; }
+        .jack-2 { top: 28%; left: 4%; font-size: clamp(2.2rem, 3.6vw, 3.2rem); animation-duration: 5.2s; }
+        .skel-1 { bottom: 28%; right: 8%; font-size: clamp(2rem, 3.5vw, 3.2rem); animation-duration: 6s; }
+        .smile-bg { top: 5%; font-size: clamp(3rem, 5vw, 5rem); animation-duration: 3.5s; }
 
         @keyframes floatAnim {
-            0% { transform: translateY(0px) rotate(-5deg); -webkit-transform: translateY(0px) rotate(-5deg); opacity: 0.2; }
-            100% { transform: translateY(-18px) rotate(6deg); -webkit-transform: translateY(-18px) rotate(6deg); opacity: 0.45; }
+            0% { transform: translateY(0px) rotate(-6deg); -webkit-transform: translateY(0px) rotate(-6deg); opacity: 0.2; }
+            100% { transform: translateY(-22px) rotate(8deg); -webkit-transform: translateY(-22px) rotate(8deg); opacity: 0.45; }
         }
 
         header {
@@ -102,7 +106,7 @@
             z-index: 2;
         }
 
-        /* 📐 КОНТЕЙНЕР КОЛЕСА (АДАПТИВНИЙ) */
+        /* 📐 КОНТЕЙНЕР КОЛЕСА */
         .wheel-container {
             position: relative;
             width: min(82vw, 42vh, 340px);
@@ -114,7 +118,7 @@
             z-index: 2;
         }
 
-        /* 🖥️ ДЛЯ ПК І ВЕЛИКИХ ЕКРАНІВ (ЗБІЛЬШЕННЯ) */
+        /* 🖥️ ДЛЯ ПК І ВЕЛИКИХ ЕКРАНІВ */
         @media (min-width: 768px) {
             body {
                 padding: 20px;
@@ -151,7 +155,7 @@
             }
         }
 
-        /* 👁️ ВКАЗІВНИК МІЖ ОКОМ ТА ТРИКУТНИКОМ */
+        /* 👁️ ВКАЗІВНИК */
         .pointer-box {
             position: absolute;
             top: -22px;
@@ -383,14 +387,20 @@
 </head>
 <body>
 
+    <!-- 🕸️ ПАВУТИНА У 4 КУТКАХ -->
     <div class="web-corner web-tl">🕸️</div>
     <div class="web-corner web-tr">🕸️</div>
     <div class="web-corner web-bl">🕸️</div>
     <div class="web-corner web-br">🕸️</div>
 
+    <!-- 👻 БАГАТО РУХОМИХ ЖАХАСТИКІВ -->
     <div class="spooky-float bat-1">🦇</div>
     <div class="spooky-float bat-2">🦇</div>
-    <div class="spooky-float ghost-bg">👻</div>
+    <div class="spooky-float ghost-1">👻</div>
+    <div class="spooky-float ghost-2">👻</div>
+    <div class="spooky-float jack-1">🎃</div>
+    <div class="spooky-float jack-2">🎃</div>
+    <div class="spooky-float skel-1">💀</div>
     <div class="spooky-float smile-bg">😈</div>
 
     <header>
@@ -449,7 +459,7 @@
             { id: 'discount5', text: "Знижка 5%", emoji: "🎃", color: "#ef4444", textColor: "#ffffff" },
             { id: 'lose2', text: "Привид вкрав", emoji: "👻", color: "#052e16", textColor: "#22c55e" },
             { id: 'discount7', text: "Знижка 7%", emoji: "👁️", color: "#a855f7", textColor: "#ffffff" },
-            { id: 'lose3', text: "Зілля Невдачі", emoji: "🧪", color: "#180928", textColor: "#fca5a5" },
+            { id: 'freeBeer', text: "Бокал пива", emoji: "🍺", color: "#eab308", textColor: "#022c22" },
             { id: 'discount10', text: "Знижка 10%", emoji: "🏆", color: "#22c55e", textColor: "#022c22" },
             { id: 'lose4', text: "Забрав відьмак", emoji: "🧙‍♂️", color: "#7f1d1d", textColor: "#fca5a5" },
             { id: 'lose5', text: "Павук у кулі", emoji: "🕷️", color: "#0f051a", textColor: "#4ade80" }
@@ -466,14 +476,13 @@
             const left = Math.max(0, 3 - currentAttempt);
             attemptsBadge.innerText = `Залишилось спроб: ${left} / 3 🔮`;
 
-            // 🧪 КНОПКА НЕ БЛОКУЄТЬСЯ ДЛЯ ТЕСТУВАННЯ
-            // if (currentAttempt >= 3) {
-            //     spinBtn.disabled = true;
-            //     spinBtn.innerText = "Спроби вичерпано 🔒";
-            // }
+            // 🔒 ОБМЕЖЕННЯ НА 3 СПРОБИ ПОВНОЦІННО ВВЕДЕНО
+            if (currentAttempt >= 3) {
+                spinBtn.disabled = true;
+                spinBtn.innerText = "Спроби вичерпано 🔒";
+            }
         }
 
-        // 🎨 ЧІТКИЙ, ПРОПОРЦІЙНИЙ РЕНДЕРИНГ ДЛЯ ПК І МОБІЛЬНИХ
         function drawWheel() {
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
@@ -501,9 +510,8 @@
                 ctx.textAlign = "center";
                 ctx.fillStyle = sectors[i].textColor;
 
-                // 📐 ДИНАМІЧНИЙ ВЕЛИКИЙ ШРИФТ ДЛЯ БУДЬ-ЯКИХ ДИСПЛЕЇВ
-                const textFontSize = Math.round(canvas.width * 0.032); // ~26px
-                const emojiFontSize = Math.round(canvas.width * 0.03);  // ~24px
+                const textFontSize = Math.round(canvas.width * 0.032);
+                const emojiFontSize = Math.round(canvas.width * 0.03);
 
                 ctx.font = `bold ${textFontSize}px 'Segoe UI', sans-serif`;
                 ctx.fillText(sectors[i].text, radius * 0.58, -4);
@@ -518,7 +526,20 @@
         drawWheel();
         updateAttemptsUI();
 
+        if (currentAttempt >= 3 && savedWin) {
+            setTimeout(() => {
+                const winData = JSON.parse(savedWin);
+                if (winData.type === 'beer') {
+                    showBeerWinModal();
+                } else {
+                    showWinModal(winData.discount, winData.code);
+                }
+            }, 500);
+        }
+
         function spinWheel() {
+            if (currentAttempt >= 3) return;
+
             spinBtn.disabled = true;
 
             currentAttempt++;
@@ -528,16 +549,20 @@
             let targetSectorIndex;
 
             if (currentAttempt < 3) {
-                const loseIndices = [0, 2, 4, 6, 7];
+                // Перші 2 спроби — програшні
+                const loseIndices = [0, 2, 6, 7];
                 targetSectorIndex = loseIndices[Math.floor(Math.random() * loseIndices.length)];
             } else {
+                // 3-тя спроба: 5% (40%), 7% (30%), 10% (15%), Бокал (15%)
                 const rand = Math.random() * 100;
-                if (rand < 50) {
-                    targetSectorIndex = 1; // 5%
-                } else if (rand < 80) {
-                    targetSectorIndex = 3; // 7%
+                if (rand < 40) {
+                    targetSectorIndex = 1; // Знижка 5% (40%)
+                } else if (rand < 70) {
+                    targetSectorIndex = 3; // Знижка 7% (30%)
+                } else if (rand < 85) {
+                    targetSectorIndex = 5; // Знижка 10% (15%)
                 } else {
-                    targetSectorIndex = 5; // 10%
+                    targetSectorIndex = 4; // Бокал пива (15%)
                 }
             }
 
@@ -574,25 +599,25 @@
                 modalMainBtn.onclick = closeModal;
                 modal.classList.add('active');
             } else {
-                let discount = "5%";
-                // Базово закодований промокод "SPOOKY5"
-                let encodedCode = "U1BPT0tZNQ==";
+                if (sector.id === 'freeBeer') {
+                    localStorage.setItem('hw_wheel_win', JSON.stringify({ type: 'beer' }));
+                    showBeerWinModal();
+                } else {
+                    let discount = "5%";
+                    let encodedCode = "U1BPT0tZNQ=="; // SPOOKY5
 
-                if (sector.id === 'discount7') {
-                    discount = "7%";
-                    // Закодований промокод "TRICKY7"
-                    encodedCode = "VFJJQ0tZNw==";
-                } else if (sector.id === 'discount10') {
-                    discount = "10%";
-                    // Закодований промокод "TREAT10"
-                    encodedCode = "VFJFQVQxMA==";
+                    if (sector.id === 'discount7') {
+                        discount = "7%";
+                        encodedCode = "VFJJQ0tZNw=="; // TRICKY7
+                    } else if (sector.id === 'discount10') {
+                        discount = "10%";
+                        encodedCode = "VFJFQVQxMA=="; // TREAT10
+                    }
+
+                    const promoCode = atob(encodedCode);
+                    localStorage.setItem('hw_wheel_win', JSON.stringify({ type: 'promo', discount, code: promoCode }));
+                    showWinModal(discount, promoCode);
                 }
-
-                // Розкодовуємо прямо перед відображенням
-                const promoCode = atob(encodedCode);
-
-                localStorage.setItem('hw_wheel_win', JSON.stringify({ discount, code: promoCode }));
-                showWinModal(discount, promoCode);
             }
         }
 
@@ -612,6 +637,16 @@
             modal.classList.add('active');
         }
 
+        function showBeerWinModal() {
+            modalTitle.innerText = "БЕЗКОШТОВНИЙ КЕЛИХ! 🍺🎃";
+            modalText.innerHTML = `Вам випав <strong>безкоштовний келих пива на розлив</strong>!<br><br>📸 <strong>Зробіть скріншот цього екрану</strong> та покажіть його на касі в закладі <strong>Underwood Drinks Boutique</strong>, щоб забрати свій подарунок!`;
+            promoContainer.style.display = 'none';
+
+            modalMainBtn.innerText = "Зрозуміло 🍻";
+            modalMainBtn.onclick = closeModal;
+            modal.classList.add('active');
+        }
+
         function copyPromoCode() {
             const codeText = promoBox.innerText;
             navigator.clipboard.writeText(codeText).then(() => {
@@ -622,7 +657,9 @@
 
         function closeModal() {
             modal.classList.remove('active');
-            spinBtn.disabled = false;
+            if (currentAttempt < 3) {
+                spinBtn.disabled = false;
+            }
         }
     </script>
 </body>
