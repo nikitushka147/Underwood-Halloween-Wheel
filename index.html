@@ -3,196 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Underwood Brewery - Trick or Treat 🎃🍺</title>
+    <title>Underwood - Trick or Treat Wheel 🎃👻</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
             -webkit-user-select: none;
         }
 
         body {
-            background: #040108;
+            background: #030108;
+            background-image: 
+                radial-gradient(circle at 50% 12%, rgba(239, 68, 68, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 15% 85%, rgba(34, 197, 94, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.25) 0%, transparent 45%);
             color: #fff;
             min-height: 100vh;
+            max-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
-            padding: 15px;
-            overflow-x: hidden;
+            padding: 10px 15px;
+            overflow: hidden;
             position: relative;
         }
 
-        /* */
-        /* Animated ambient background atmosphere */
-        #bgCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
+        /* Декоративні елементи */
+        .decor-glow-eyes {
+            position: absolute;
+            top: 10px;
+            font-size: 3rem;
+            opacity: 0.25;
+            filter: drop-shadow(0 0 15px #ef4444);
             pointer-events: none;
+            animation: pulseEyes 3s infinite alternate;
+            z-index: 1;
         }
 
-        /* Main Container */
-        .app-container {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 500px;
+        @keyframes pulseEyes {
+            0% { transform: scale(0.95); opacity: 0.2; }
+            100% { transform: scale(1.1); opacity: 0.4; }
         }
 
-        /* Branding Subtitle */
-        .brand-tag {
-            color: #ef4444;
-            font-size: 0.85rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-            text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
-        }
-
-        /* Title */
-        h1 {
-            margin-bottom: 4px;
-            color: #22c55e;
+        header {
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 900;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #ef4444;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(34, 197, 94, 0.8), 0 0 35px rgba(239, 68, 68, 0.6);
+            text-shadow: 0 0 12px rgba(239, 68, 68, 0.9), 0 0 25px rgba(34, 197, 94, 0.7);
+            line-height: 1.1;
         }
 
         p.subtitle {
-            margin-bottom: 12px;
-            color: #fca5a5;
-            text-align: center;
-            font-size: 0.95rem;
-            text-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
-            font-weight: 600;
-        }
-
-        /* Attempts Badge */
-        .attempts-badge {
-            background: rgba(15, 5, 26, 0.85);
-            border: 2px solid #ef4444;
             color: #4ade80;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5), inset 0 0 10px rgba(34, 197, 94, 0.2);
-            backdrop-filter: blur(4px);
+            font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+            text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+            font-weight: 600;
+            margin-top: 3px;
         }
 
-        /* */
-        /* Prominent Wheel Container */
+        .attempts-badge {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+            z-index: 2;
+        }
+
+        /* 📐 ОПТИМІЗОВАНО РОЗМІР КОЛЕСА ДЛЯ МОБІЛЬНИХ ТА ПК */
         .wheel-container {
             position: relative;
-            width: 100%;
-            max-width: 440px;
-            aspect-ratio: 1 / 1;
-            margin: 0 auto 20px auto;
+            width: min(80vw, 42vh, 340px);
+            height: min(80vw, 42vh, 340px);
+            margin: 5px auto;
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 2;
         }
 
-        /* Eerie Glowing Pointer */
         .pointer {
             position: absolute;
-            top: -20px;
+            top: -14px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 22px solid transparent;
-            border-right: 22px solid transparent;
-            border-top: 44px solid #ef4444;
-            z-index: 20;
-            filter: drop-shadow(0 0 12px #ef4444);
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 28px solid #ef4444;
+            z-index: 10;
+            filter: drop-shadow(0 0 8px #ef4444);
         }
 
         .pointer::after {
             content: '👁️';
             position: absolute;
-            top: -50px;
-            left: -18px;
-            font-size: 1.8rem;
+            top: -34px;
+            left: -12px;
+            font-size: 1.2rem;
         }
 
-        /* Canvas Wheel */
-        #wheel {
+        canvas {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            box-shadow: 0 0 40px rgba(239, 68, 68, 0.6), 0 0 25px rgba(34, 197, 94, 0.5), inset 0 0 20px rgba(0,0,0,0.9);
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.5), 0 0 18px rgba(34, 197, 94, 0.4), inset 0 0 15px rgba(0,0,0,0.9);
             transition: transform 4.5s cubic-bezier(0.15, 0.9, 0.1, 1);
         }
 
-        /* Center Cap */
         .center-cap {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 62px;
-            height: 62px;
+            width: 42px;
+            height: 42px;
             background: #090312;
             border: 3px solid #22c55e;
             border-radius: 50%;
-            z-index: 15;
+            z-index: 5;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.7rem;
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.9);
+            font-size: 1.2rem;
+            box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
         }
 
-        /* Spin Button */
         .spin-btn {
             background: linear-gradient(135deg, #ef4444, #22c55e);
             color: #fff;
-            font-size: 1.25rem;
+            font-size: clamp(0.95rem, 3.5vw, 1.15rem);
             font-weight: 900;
-            padding: 16px 36px;
+            padding: 12px 28px;
             border: none;
-            border-radius: 35px;
+            border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 0 25px rgba(239, 68, 68, 0.7);
+            box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
             transition: all 0.2s ease;
-            width: 100%;
-            max-width: 330px;
+            width: 90%;
+            max-width: 300px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
+            z-index: 2;
         }
 
         .spin-btn:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(34, 197, 94, 0.9);
+            transform: scale(1.03);
+            box-shadow: 0 0 22px rgba(34, 197, 94, 0.8);
         }
 
         .spin-btn:disabled {
-            background: #23122c;
-            color: #614e66;
+            background: #271428;
+            color: #6b586e;
             cursor: not-allowed;
             box-shadow: none;
             transform: scale(1);
         }
 
-        /* */
-        /* Modal Window */
+        /* Модальне вікно */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -200,7 +182,7 @@
             width: 100vw;
             height: 100vh;
             background: rgba(3, 1, 8, 0.92);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(6px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -208,7 +190,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-overlay.active {
@@ -217,15 +199,15 @@
         }
 
         .modal-card {
-            background: #0e041a;
+            background: #0f051a;
             border: 2px solid #22c55e;
             color: #fff;
-            padding: 28px 22px;
-            border-radius: 24px;
+            padding: 20px 18px;
+            border-radius: 18px;
             text-align: center;
-            max-width: 390px;
+            max-width: 360px;
             width: 100%;
-            box-shadow: 0 0 35px rgba(34, 197, 94, 0.5), 0 0 20px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.4), 0 0 15px rgba(239, 68, 68, 0.3);
             transform: scale(0.8);
             transition: transform 0.3s ease;
         }
@@ -236,71 +218,68 @@
 
         .modal-card h2 {
             color: #ef4444;
-            font-size: 1.9rem;
-            margin-bottom: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
             text-transform: uppercase;
-            text-shadow: 0 0 12px rgba(239, 68, 68, 0.7);
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
         }
 
         .modal-card p {
             color: #e2e8f0;
-            font-size: 1.05rem;
-            margin-bottom: 22px;
-            line-height: 1.45;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.35;
         }
 
-        /* Promo Container & Copy Button */
         .promo-container {
             display: none;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 22px;
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
         .promo-code-box {
-            background: #18082a;
+            background: #180928;
             border: 2px dashed #22c55e;
-            padding: 14px;
-            border-radius: 14px;
-            font-size: 1.7rem;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1.4rem;
             font-weight: 900;
             color: #4ade80;
-            letter-spacing: 3px;
-            text-shadow: 0 0 12px rgba(74, 222, 128, 0.7);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
         }
 
         .copy-btn {
             background: #22c55e;
             color: #05020a;
             border: none;
-            padding: 12px 18px;
-            border-radius: 22px;
+            padding: 10px 14px;
+            border-radius: 20px;
             font-weight: 900;
-            font-size: 1rem;
+            font-size: 0.88rem;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .copy-btn:hover {
             background: #4ade80;
-            transform: scale(1.02);
         }
 
         .copy-btn.copied {
             background: #3b82f6;
             color: #ffffff;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
         }
 
         .modal-actions {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .modal-btn {
@@ -310,46 +289,39 @@
             color: white;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
-            padding: 14px 18px;
-            border-radius: 28px;
+            font-size: 0.95rem;
+            padding: 10px 14px;
+            border-radius: 22px;
             border: none;
-            box-shadow: 0 4px 18px rgba(239, 68, 68, 0.5);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
             transition: background 0.2s, transform 0.2s;
             cursor: pointer;
-        }
-
-        .modal-btn:hover {
-            transform: scale(1.02);
         }
     </style>
 </head>
 <body>
 
-    <!-- Animated Ambient Background Canvas -->
-    <canvas id="bgCanvas"></canvas>
+    <div class="decor-glow-eyes">😈</div>
 
-    <!-- Main Content Container -->
-    <div class="app-container">
-        <div class="brand-tag">UNDERWOOD BREWERY</div>
-        <h1>TRICK OR TREAT 🎃</h1>
-        <p class="subtitle">Випробуй вдачу та вигравай пекельні знижки!</p>
+    <header>
+        <h1>Trick or Treat 🎃🩸</h1>
+        <p class="subtitle">Крути зловісне колесо та вигравай знижки!</p>
+    </header>
 
-        <div class="attempts-badge" id="attemptsBadge">Залишилось спроб: 3 / 3 🔮</div>
+    <div class="attempts-badge" id="attemptsBadge">Залишилось спроб: 3 / 3 🔮</div>
 
-        <div class="wheel-container">
-            <div class="pointer"></div>
-            <canvas id="wheel" width="850" height="850"></canvas>
-            <div class="center-cap">💀</div>
-        </div>
-
-        <button class="spin-btn" id="spinBtn" onclick="spinWheel()">КРУТИТИ КОЛЕСО ⚡</button>
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <canvas id="wheel" width="800" height="800"></canvas>
+        <div class="center-cap">💀</div>
     </div>
 
-    <!-- Modal Popup Dialog -->
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">КРУТИТИ КОЛЕСО ⚡</button>
+
+    <!-- ВСПЛИВАЮЧЕ ВІКНО -->
     <div class="modal-overlay" id="modal">
         <div class="modal-card">
-            <h2 id="modalTitle">Trick or Treat! 👻</h2>
+            <h2 id="modalTitle">Зловісне колесо! 👻</h2>
             <p id="modalText">Текст результату...</p>
             
             <div class="promo-container" id="promoContainer">
@@ -366,73 +338,6 @@
     </div>
 
     <script>
-        // Ambient Background Canvas with Eerie Red Projection & Green Fluorescent Halloween Elements
-        const bgCanvas = document.getElementById('bgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-
-        function resizeBg() {
-            bgCanvas.width = window.innerWidth;
-            bgCanvas.height = window.innerHeight;
-        }
-        resizeBg();
-        window.addEventListener('resize', resizeBg);
-
-        // Floating Bats & Ghosts
-        const bgEntities = Array.from({ length: 18 }, () => ({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            size: Math.random() * 24 + 16,
-            speedX: (Math.random() - 0.5) * 1.5,
-            speedY: (Math.random() - 0.5) * 1.2,
-            type: Math.random() > 0.4 ? '🦇' : (Math.random() > 0.5 ? '👻' : '🎃'),
-            alpha: Math.random() * 0.4 + 0.2
-        }));
-
-        function drawBackground() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-
-            // Red Evil Spotlights (Top Center & Lamp effect)
-            const redGlow = bgCtx.createRadialGradient(
-                bgCanvas.width * 0.5, bgCanvas.height * 0.15, 10,
-                bgCanvas.width * 0.5, bgCanvas.height * 0.15, bgCanvas.width * 0.6
-            );
-            redGlow.addColorStop(0, 'rgba(239, 68, 68, 0.45)');
-            redGlow.addColorStop(0.5, 'rgba(127, 29, 29, 0.25)');
-            redGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            bgCtx.fillStyle = redGlow;
-            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-
-            // Green Toxic Glow (Bottom Sides)
-            const greenGlow = bgCtx.createRadialGradient(
-                bgCanvas.width * 0.2, bgCanvas.height * 0.85, 10,
-                bgCanvas.width * 0.2, bgCanvas.height * 0.85, bgCanvas.width * 0.5
-            );
-            greenGlow.addColorStop(0, 'rgba(34, 197, 94, 0.28)');
-            greenGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            bgCtx.fillStyle = greenGlow;
-            bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-
-            // Floating Halloween items
-            bgEntities.forEach(ent => {
-                ent.x += ent.speedX;
-                ent.y += ent.speedY;
-
-                if (ent.x < -30) ent.x = bgCanvas.width + 30;
-                if (ent.x > bgCanvas.width + 30) ent.x = -30;
-                if (ent.y < -30) ent.y = bgCanvas.height + 30;
-                if (ent.y > bgCanvas.height + 30) ent.y = -30;
-
-                bgCtx.save();
-                bgCtx.globalAlpha = ent.alpha;
-                bgCtx.font = `${ent.size}px sans-serif`;
-                bgCtx.fillText(ent.type, ent.x, ent.y);
-                bgCtx.restore();
-            });
-
-            requestAnimationFrame(drawBackground);
-        }
-        drawBackground();
-
         const canvas = document.getElementById('wheel');
         const ctx = canvas.getContext('2d');
         const spinBtn = document.getElementById('spinBtn');
@@ -445,16 +350,15 @@
         const modalMainBtn = document.getElementById('modalMainBtn');
         const attemptsBadge = document.getElementById('attemptsBadge');
 
-        // Sector definitions with thematic lose titles & win discounts
         const sectors = [
-            { id: 'lose1', label: "Вампірський укус 🦇", color: "#180928", textColor: "#fca5a5" },
+            { id: 'lose1', label: "Вкусив упир 🧛‍♂️", color: "#180928", textColor: "#4ade80" },
             { id: 'discount5', label: "Знижка 5% 🎃", color: "#ef4444", textColor: "#ffffff" },
-            { id: 'lose2', label: "Гарбузове прокляття 🎃", color: "#052e16", textColor: "#22c55e" },
+            { id: 'lose2', label: "Привид вкрав! 👻", color: "#052e16", textColor: "#22c55e" },
             { id: 'discount7', label: "Знижка 7% 👁️", color: "#a855f7", textColor: "#ffffff" },
-            { id: 'lose3', label: "Закуска упиря 🧛‍♂️", color: "#180928", textColor: "#fca5a5" },
+            { id: 'lose3', label: "Зілля Невдачі 🧪", color: "#180928", textColor: "#fca5a5" },
             { id: 'discount10', label: "Знижка 10% 🏆", color: "#22c55e", textColor: "#022c22" },
-            { id: 'lose4', label: "Павутинна пастка 🕸️", color: "#7f1d1d", textColor: "#fca5a5" },
-            { id: 'lose5', label: "Отруйний яблучний затишок 🍏", color: "#0f051a", textColor: "#4ade80" }
+            { id: 'lose4', label: "Забрав відьмак 🧙‍♂️", color: "#7f1d1d", textColor: "#fca5a5" },
+            { id: 'lose5', label: "Павук у кулі 🕷️", color: "#0f051a", textColor: "#4ade80" }
         ];
 
         const numSectors = sectors.length;
@@ -464,9 +368,6 @@
         // =========================================================================
         // 🧪 ТЕСТУВАННЯ: ВИЗНАЧНИК КІЛЬКОСТІ СПРОБ ТА ЗБЕРЕЖЕННЯ В ПАМ'ЯТІ
         // =========================================================================
-        // Щоб повністю скинути лічильник спроб під час тестування, розкоментуйте наступний рядок:
-        // localStorage.removeItem('hw_wheel_attempts'); localStorage.removeItem('hw_wheel_win');
-
         let currentAttempt = parseInt(localStorage.getItem('hw_wheel_attempts') || '0');
         let savedWin = localStorage.getItem('hw_wheel_win');
 
@@ -474,7 +375,6 @@
             const left = Math.max(0, 3 - currentAttempt);
             attemptsBadge.innerText = `Залишилось спроб: ${left} / 3 🔮`;
 
-            // 🧪 ТЕСТУВАННЯ: Закоментуйте умову нижче, щоб вимкнути блокування кнопки після 3 спроб
             if (currentAttempt >= 3) {
                 spinBtn.disabled = true;
                 spinBtn.innerText = "Спроби вичерпано 🔒";
@@ -484,7 +384,7 @@
         function drawWheel() {
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
-            const radius = canvas.width / 2 - 18;
+            const radius = canvas.width / 2 - 15;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -507,9 +407,9 @@
                 
                 ctx.textAlign = "center";
                 ctx.fillStyle = sectors[i].textColor;
-                ctx.font = "900 21px 'Segoe UI', sans-serif";
+                ctx.font = "900 22px 'Segoe UI', sans-serif";
                 
-                ctx.fillText(sectors[i].label, radius * 0.61, 7);
+                ctx.fillText(sectors[i].label, radius * 0.62, 8);
                 ctx.restore();
             }
         }
@@ -525,35 +425,28 @@
         }
 
         function spinWheel() {
-            // 🧪 ТЕСТУВАННЯ: Закоментуйте умову нижче, щоб мати можливість крутити безліч разів
-            if (currentAttempt >= 3) return;
+            if (currentAttempt >= 20) return;
 
             spinBtn.disabled = true;
 
-            // =========================================================================
-            // 🧪 ТЕСТУВАННЯ: ІНКРЕМЕНТ ТА ЗБЕРЕЖЕННЯ СПРОБ
-            // Закоментуйте ці 2 рядки, щоб спроби НЕ витрачалися та НЕ зберігалися в браузері:
-           // currentAttempt++;
-            //localStorage.setItem('hw_wheel_attempts', currentAttempt);
-            // =========================================================================
+            currentAttempt++;
+            localStorage.setItem('hw_wheel_attempts', currentAttempt);
 
             updateAttemptsUI();
 
             let targetSectorIndex;
 
-            // 🧪 ТЕСТУВАННЯ: Логіка випадіння (перші 2 спроби — Trick/Lose, 3-тя — Treat/Win)
             if (currentAttempt < 3) {
                 const loseIndices = [0, 2, 4, 6, 7];
                 targetSectorIndex = loseIndices[Math.floor(Math.random() * loseIndices.length)];
             } else {
-                // Probabilities for 3rd attempt: 5% -> 50%, 7% -> 30%, 10% -> 20%
                 const rand = Math.random() * 100;
                 if (rand < 50) {
-                    targetSectorIndex = 1; // Знижка 5%
+                    targetSectorIndex = 1; // 5%
                 } else if (rand < 80) {
-                    targetSectorIndex = 3; // Знижка 7%
+                    targetSectorIndex = 3; // 7%
                 } else {
-                    targetSectorIndex = 5; // Знижка 10%
+                    targetSectorIndex = 5; // 10%
                 }
             }
 
@@ -580,22 +473,22 @@
 
         function handleSpinResult(sector) {
             if (currentAttempt < 3) {
-                modalTitle.innerText = "Trick! 👻";
-                modalText.innerHTML = `Вам випало: <strong>${sector.label}</strong>.<br>Темні сили бешкетують, але у вас є ще спроба!`;
+                modalTitle.innerText = "Trick or Treat! 👻";
+                modalText.innerHTML = `Вам випало: <strong>${sector.label}</strong>.<br>Невдача! Але в тебе ще є спроба!`;
                 promoContainer.style.display = 'none';
                 modalMainBtn.innerText = "Спробувати ще 🔄";
                 modalMainBtn.onclick = closeModal;
                 modal.classList.add('active');
             } else {
                 let discount = "5%";
-                let promoCode = "TRICK5";
+                let promoCode = "SPOOKY5";
 
                 if (sector.id === 'discount7') {
                     discount = "7%";
-                    promoCode = "TRICK7";
+                    promoCode = "SPOOKY7";
                 } else if (sector.id === 'discount10') {
                     discount = "10%";
-                    promoCode = "TRICK10";
+                    promoCode = "SPOOKY10";
                 }
 
                 localStorage.setItem('hw_wheel_win', JSON.stringify({ discount, code: promoCode }));
@@ -604,8 +497,8 @@
         }
 
         function showWinModal(discount, promoCode) {
-            modalTitle.innerText = "Treat! 🎃🏆";
-            modalText.innerHTML = `Вітаємо! Твій виграш: <strong>Знижка ${discount}</strong> на напої Underwood!`;
+            modalTitle.innerText = "TREAT WIN! 🎃🏆";
+            modalText.innerHTML = `Темні сили прихильні до тебе!<br>Твій виграш: <strong>Знижка ${discount}</strong> на набір пива або лимонадів!`;
             promoBox.innerText = promoCode;
             promoContainer.style.display = 'flex';
             
