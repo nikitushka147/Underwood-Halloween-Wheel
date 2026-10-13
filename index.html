@@ -22,14 +22,15 @@
                 radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.3) 0%, transparent 50%);
             color: #fff;
             min-height: 100vh;
-            max-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            padding: 10px 12px;
-            overflow: hidden;
+            padding: 16px 12px;
+            overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
+            gap: 12px;
         }
 
         /* 🕸️ ПАВУТИНА У 4 КУТКАХ */
@@ -46,7 +47,7 @@
         .web-bl { bottom: 6px; left: 6px; transform: scaleY(-1); -webkit-transform: scaleY(-1); }
         .web-br { bottom: 6px; right: 6px; transform: scale(-1); -webkit-transform: scale(-1); }
 
-        /* 👻 БАГАТО РУХОМИХ ЖАХАСТИКІВ (Кажани, Привиди, Скелети, Гарбузи) */
+        /* 👻 РУХОМІ ЖАХАСТИКИ */
         .spooky-float {
             position: absolute;
             pointer-events: none;
@@ -98,7 +99,7 @@
             background: rgba(239, 68, 68, 0.18);
             border: 1px solid #ef4444;
             color: #fca5a5;
-            padding: 5px 16px;
+            padding: 6px 18px;
             border-radius: 20px;
             font-size: clamp(0.75rem, 2.2vw, 1rem);
             font-weight: bold;
@@ -109,9 +110,9 @@
         /* 📐 КОНТЕЙНЕР КОЛЕСА */
         .wheel-container {
             position: relative;
-            width: min(82vw, 42vh, 340px);
-            height: min(82vw, 42vh, 340px);
-            margin: 4px auto;
+            width: min(80vw, 42vh, 340px);
+            height: min(80vw, 42vh, 340px);
+            margin: 8px auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -121,11 +122,12 @@
         /* 🖥️ ДЛЯ ПК І ВЕЛИКИХ ЕКРАНІВ */
         @media (min-width: 768px) {
             body {
-                padding: 20px;
+                padding: 24px;
+                gap: 16px;
             }
             .wheel-container {
-                width: min(70vw, 55vh, 480px);
-                height: min(70vw, 55vh, 480px);
+                width: min(65vw, 52vh, 480px);
+                height: min(65vw, 52vh, 480px);
             }
             .eye-ball {
                 width: 32px !important;
@@ -152,6 +154,19 @@
                 max-width: 380px !important;
                 padding: 16px 36px !important;
                 font-size: 1.3rem !important;
+            }
+        }
+
+        /* 📱 АДАПТИВ ДЛЯ НИЗЬКИХ ЕКРАНІВ / ГОРИЗОНТАЛЬНОГО РЕЖИМУ */
+        @media (max-height: 620px) {
+            body {
+                justify-content: flex-start;
+                padding-top: 12px;
+                padding-bottom: 24px;
+            }
+            .wheel-container {
+                width: min(75vw, 45vh, 280px);
+                height: min(75vw, 45vh, 280px);
             }
         }
 
@@ -243,6 +258,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             z-index: 2;
+            margin-bottom: 8px;
         }
 
         .spin-btn:hover:not(:disabled) {
@@ -292,6 +308,8 @@
             text-align: center;
             max-width: 380px;
             width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 0 25px rgba(34, 197, 94, 0.4), 0 0 15px rgba(239, 68, 68, 0.3);
             transform: scale(0.8);
             -webkit-transform: scale(0.8);
@@ -476,7 +494,6 @@
             const left = Math.max(0, 3 - currentAttempt);
             attemptsBadge.innerText = `Залишилось спроб: ${left} / 3 🔮`;
 
-            // 🔒 ОБМЕЖЕННЯ НА 3 СПРОБИ ПОВНОЦІННО ВВЕДЕНО
             if (currentAttempt >= 3) {
                 spinBtn.disabled = true;
                 spinBtn.innerText = "Спроби вичерпано 🔒";
@@ -549,11 +566,9 @@
             let targetSectorIndex;
 
             if (currentAttempt < 3) {
-                // Перші 2 спроби — програшні
                 const loseIndices = [0, 2, 6, 7];
                 targetSectorIndex = loseIndices[Math.floor(Math.random() * loseIndices.length)];
             } else {
-                // 3-тя спроба: 5% (40%), 7% (30%), 10% (15%), Бокал (15%)
                 const rand = Math.random() * 100;
                 if (rand < 40) {
                     targetSectorIndex = 1; // Знижка 5% (40%)
@@ -604,14 +619,14 @@
                     showBeerWinModal();
                 } else {
                     let discount = "5%";
-                    let encodedCode = "U1BPT0tZNQ=="; 
+                    let encodedCode = "U1BPT0tZNQ=="; // SPOOKY5
 
                     if (sector.id === 'discount7') {
                         discount = "7%";
-                        encodedCode = "VFJJQ0tZNw=="; 
+                        encodedCode = "VFJJQ0tZNw=="; // TRICKY7
                     } else if (sector.id === 'discount10') {
                         discount = "10%";
-                        encodedCode = "VFJFQVQxMA=="; 
+                        encodedCode = "VFJFQVQxMA=="; // TREAT10
                     }
 
                     const promoCode = atob(encodedCode);
@@ -623,7 +638,7 @@
 
         function showWinModal(discount, promoCode) {
             modalTitle.innerText = "TREAT WIN! 🎃🏆";
-            modalText.innerHTML = `Темні сили прихильні до тебе!<br>Твій виграш: <strong>Знижка ${discount}</strong> на крафтове пиво або лимонади!`;
+            modalText.innerHTML = `Темні сили прихильні до тебе!<br>Твій виграш: <strong>Знижка ${discount}</strong> на набір пива або лимонадів!`;
             promoBox.innerText = promoCode;
             promoContainer.style.display = 'flex';
             
